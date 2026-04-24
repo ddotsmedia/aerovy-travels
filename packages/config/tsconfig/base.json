@@ -17,8 +17,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "declaration": true,
-    "declarationMap": true,
+    "declaration": false,
+    "declarationMap": false,
     "incremental": true
   },
   "exclude": ["node_modules", "dist", ".next", ".turbo", "coverage"]

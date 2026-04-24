@@ -23,7 +23,8 @@
     "sectionTitle": "Featured this week",
     "sectionSubtitle": "A taste of what's coming once our supplier catalog loads.",
     "placeholder": "Coming soon",
-    "placeholderDescription": "Listings populate in Phase 1 Ticket 8 (browse + detail)."
+    "placeholderDescription": "Listings populate in Phase 1 Ticket 8 (browse + detail).",
+    "fromPrice": "From <strong>{price}</strong> per person"
   },
   "designSystem": {
     "title": "Design system preview",

@@ -9,7 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   // Let the monorepo packages ship raw TS — Next transpiles them.
-  transpilePackages: ["@aerovy/ui"],
+  transpilePackages: ["@aerovy/ui", "@aerovy/api", "@aerovy/db"],
   // Pin tracing root to the monorepo so Next doesn't pick up an unrelated
   // lockfile higher up on the machine.
   outputFileTracingRoot: resolve(__dirname, "../.."),

@@ -23,7 +23,8 @@
     "sectionTitle": "أبرز ما لدينا هذا الأسبوع",
     "sectionSubtitle": "لمحة عمّا سيظهر بمجرد تحميل قائمة مزوّدينا.",
     "placeholder": "قريباً",
-    "placeholderDescription": "ستظهر القوائم في المرحلة الأولى — التذكرة الثامنة."
+    "placeholderDescription": "ستظهر القوائم في المرحلة الأولى — التذكرة الثامنة.",
+    "fromPrice": "ابتداءً من <strong>{price}</strong> للشخص"
   },
   "designSystem": {
     "title": "معاينة نظام التصميم",

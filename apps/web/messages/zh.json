@@ -23,7 +23,8 @@
     "sectionTitle": "本周精选",
     "sectionSubtitle": "供应商目录加载后将在此呈现。",
     "placeholder": "敬请期待",
-    "placeholderDescription": "详细列表将在 Phase 1 第 8 张工单上线。"
+    "placeholderDescription": "详细列表将在 Phase 1 第 8 张工单上线。",
+    "fromPrice": "<strong>{price}</strong> 起 / 人"
   },
   "designSystem": {
     "title": "设计系统预览",

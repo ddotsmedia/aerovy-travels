@@ -23,7 +23,8 @@
     "sectionTitle": "Рекомендовано на этой неделе",
     "sectionSubtitle": "Превью того, что появится после загрузки каталога поставщиков.",
     "placeholder": "Скоро",
-    "placeholderDescription": "Подборки появятся в Phase 1, тикет 8."
+    "placeholderDescription": "Подборки появятся в Phase 1, тикет 8.",
+    "fromPrice": "От <strong>{price}</strong> за человека"
   },
   "designSystem": {
     "title": "Предпросмотр дизайн-системы",

@@ -1,8 +1,10 @@
 import { setRequestLocale } from "next-intl/server";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { Button, Card, CardContent } from "@aerovy/ui";
+import { Button } from "@aerovy/ui";
 import { DesignSystemPreview } from "@/components/design-system-preview";
+import { FeaturedExperiences } from "@/components/featured-experiences";
+import type { Locale } from "@/lib/locales";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -39,20 +41,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <h2 className="text-3xl font-bold tracking-tight">{t("preview.sectionTitle")}</h2>
             <p className="text-muted mt-2">{t("preview.sectionSubtitle")}</p>
           </header>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <Card key={i}>
-                <CardContent className="flex min-h-52 items-center justify-center p-6 text-center">
-                  <div>
-                    <p className="text-brand-primary text-sm font-semibold">
-                      {t("preview.placeholder")}
-                    </p>
-                    <p className="text-muted mt-1 text-sm">{t("preview.placeholderDescription")}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <FeaturedExperiences locale={locale as Locale} />
         </div>
       </section>
 

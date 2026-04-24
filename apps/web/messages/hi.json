@@ -23,7 +23,8 @@
     "sectionTitle": "इस हफ़्ते की विशेष पेशकश",
     "sectionSubtitle": "हमारे सप्लायर कैटलॉग के लोड होते ही आने वाली झलक।",
     "placeholder": "जल्द ही",
-    "placeholderDescription": "सूचियाँ Phase 1 टिकट 8 में आएँगी।"
+    "placeholderDescription": "सूचियाँ Phase 1 टिकट 8 में आएँगी।",
+    "fromPrice": "<strong>{price}</strong> से प्रति व्यक्ति"
   },
   "designSystem": {
     "title": "डिज़ाइन सिस्टम पूर्वावलोकन",
