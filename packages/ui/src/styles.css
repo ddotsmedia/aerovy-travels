@@ -1,0 +1,11 @@
+/*
+ * @aerovy/ui barrel stylesheet — re-exports the shared Tailwind v4 tokens.
+ *
+ * Consumers:
+ *   @import "tailwindcss";
+ *   @import "@aerovy/ui/styles.css";
+ *
+ * (Or import the tokens module directly from @aerovy/config if you don't
+ * need any other @aerovy/ui styles.)
+ */
+@import "@aerovy/config/tailwind/tokens.css";

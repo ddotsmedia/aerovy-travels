@@ -1,0 +1,51 @@
+{
+  "name": "@aerovy/ui",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Aerovy Travels — shared UI primitives and design tokens.",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    },
+    "./styles.css": "./src/styles.css",
+    "./components/*": {
+      "types": "./src/components/*.tsx",
+      "import": "./src/components/*.tsx"
+    },
+    "./lib/cn": {
+      "types": "./src/lib/cn.ts",
+      "import": "./src/lib/cn.ts"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aerovy/config": "workspace:*",
+    "@radix-ui/react-slot": "^1.1.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.4",
+    "tailwind-variants": "^0.3.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
