@@ -1,5 +1,5 @@
-export { cn } from "./lib/cn.js";
-export { Button, buttonVariants, type ButtonProps } from "./components/button.js";
+export { cn } from "./lib/cn";
+export { Button, buttonVariants, type ButtonProps } from "./components/button";
 export {
   Card,
   CardHeader,
@@ -7,5 +7,5 @@ export {
   CardDescription,
   CardContent,
   CardFooter,
-} from "./components/card.js";
-export { Input, type InputProps } from "./components/input.js";
+} from "./components/card";
+export { Input, type InputProps } from "./components/input";

@@ -1,0 +1,59 @@
+{
+  "site": {
+    "name": "Aerovy Travels",
+    "tagline": "Abu Dhabi, handcrafted."
+  },
+  "nav": {
+    "experiences": "Experiences",
+    "hotels": "Hotels",
+    "transfers": "Transfers",
+    "aiPlanner": "AI Planner",
+    "about": "About",
+    "contact": "Contact",
+    "signIn": "Sign in"
+  },
+  "hero": {
+    "eyebrow": "Abu Dhabi · UAE",
+    "title": "Curated travel in the heart of Arabia.",
+    "subtitle": "Tours, desert safaris, city experiences, and AI-planned itineraries — crafted for the way you travel.",
+    "ctaBrowse": "Browse experiences",
+    "ctaPlan": "Plan my trip with AI"
+  },
+  "preview": {
+    "sectionTitle": "Featured this week",
+    "sectionSubtitle": "A taste of what's coming once our supplier catalog loads.",
+    "placeholder": "Coming soon",
+    "placeholderDescription": "Listings populate in Phase 1 Ticket 8 (browse + detail)."
+  },
+  "designSystem": {
+    "title": "Design system preview",
+    "subtitle": "The primitives from @aerovy/ui rendered against the live brand tokens.",
+    "buttons": "Buttons",
+    "card": "Card",
+    "input": "Input",
+    "searchPlaceholder": "Search Abu Dhabi..."
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "made": "Made in Abu Dhabi."
+  },
+  "locale": {
+    "switcher": "Language"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "notFound": {
+    "title": "We couldn't find that page.",
+    "description": "The page you're looking for may have moved, or the link may be broken.",
+    "cta": "Back to home"
+  },
+  "error": {
+    "title": "Something went wrong.",
+    "description": "We're looking into it. Try again in a moment.",
+    "cta": "Try again"
+  }
+}

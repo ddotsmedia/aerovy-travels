@@ -1,0 +1,59 @@
+{
+  "site": {
+    "name": "Aerovy Travels",
+    "tagline": "阿布扎比,匠心之旅。"
+  },
+  "nav": {
+    "experiences": "体验",
+    "hotels": "酒店",
+    "transfers": "接送",
+    "aiPlanner": "AI 行程规划",
+    "about": "关于我们",
+    "contact": "联系",
+    "signIn": "登录"
+  },
+  "hero": {
+    "eyebrow": "阿布扎比 · 阿联酋",
+    "title": "阿拉伯之心的精选旅程。",
+    "subtitle": "城市体验、沙漠越野、文化之旅与 AI 定制行程 — 为你的旅行方式而生。",
+    "ctaBrowse": "浏览体验",
+    "ctaPlan": "用 AI 规划行程"
+  },
+  "preview": {
+    "sectionTitle": "本周精选",
+    "sectionSubtitle": "供应商目录加载后将在此呈现。",
+    "placeholder": "敬请期待",
+    "placeholderDescription": "详细列表将在 Phase 1 第 8 张工单上线。"
+  },
+  "designSystem": {
+    "title": "设计系统预览",
+    "subtitle": "来自 @aerovy/ui 的组件,使用实时品牌令牌渲染。",
+    "buttons": "按钮",
+    "card": "卡片",
+    "input": "输入框",
+    "searchPlaceholder": "搜索阿布扎比..."
+  },
+  "footer": {
+    "rights": "版权所有。",
+    "made": "制作于阿布扎比。"
+  },
+  "locale": {
+    "switcher": "语言"
+  },
+  "theme": {
+    "toggle": "切换主题",
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
+  "notFound": {
+    "title": "未找到该页面。",
+    "description": "该页面可能已被移除,或链接已失效。",
+    "cta": "返回首页"
+  },
+  "error": {
+    "title": "出了点问题。",
+    "description": "我们正在排查。请稍后重试。",
+    "cta": "重试"
+  }
+}
