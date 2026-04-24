@@ -24,8 +24,9 @@ Building a full travel platform with a frontend, backend, admin panel, customer 
 You are my senior full-stack engineer and technical architect. We are building **"Aerovy Travels"**, a premium travel platform focused on **Abu Dhabi, UAE**. The brand's logo is in `./assets/logo.png` (800 × 641 px, transparent background). A smaller thumbnail is at `./assets/logo-small.png` and the original print-ready PDF is at `./assets/logo-source.pdf`. Use the brand palette below verbatim — do NOT invent new colors.
 
 **Brand palette (extracted from the official logo):**
+
 - `--brand-primary` = **#CDA020** (Aerovy gold — used for the "A" mark and "AEROVY" wordmark)
-- `--brand-secondary` = **#2D151E` (deep aubergine/near-black — used for the paper-airplane element and "TRAVELS" wordmark)
+- `--brand-secondary` = \*\*#2D151E` (deep aubergine/near-black — used for the paper-airplane element and "TRAVELS" wordmark)
 - `--brand-accent` = **#E8C868** (lighter gold highlight, for hover/focus states)
 - Neutrals: `--bg` `#FFFFFF`, `--surface` `#FAF8F3` (warm off-white), `--text` `#2D151E`, `--muted` `#6B5A5F`.
 
@@ -88,6 +89,7 @@ A bookable travel platform for inbound tourists and UAE residents exploring Abu 
 ### Feature scope
 
 **Phase 1 — Foundation (MVP, must ship first)**
+
 - Monorepo + CI (GitHub Actions: lint, typecheck, test, build).
 - Design system seeded from the logo's color palette. Light + dark mode. Full RTL for Arabic.
 - Marketing site: home, experiences listing, experience detail, about, contact, blog (MDX).
@@ -99,6 +101,7 @@ A bookable travel platform for inbound tourists and UAE residents exploring Abu 
 - `docs/README.md` + deployment guide.
 
 **Phase 2 — AI & Personalization**
+
 - **AI Trip Planner:** chat-style, asks 4–6 questions (dates, party, budget, interests, pace), returns a day-by-day itinerary with bookable links to our inventory.
 - **Smart search:** natural-language search ("romantic sunset for two under 500 AED").
 - **AI concierge:** logged-in chatbot that can answer about bookings and suggest add-ons.
@@ -107,6 +110,7 @@ A bookable travel platform for inbound tourists and UAE residents exploring Abu 
 - Guardrails: prompt-injection filtering, max-token caps, daily spend cap, response caching.
 
 **Phase 3 — Operations depth**
+
 - Dynamic pricing & availability calendar per experience.
 - Promo codes, gift cards, bundles.
 - Supplier portal (vendors manage their own listings + payouts report).
@@ -115,6 +119,7 @@ A bookable travel platform for inbound tourists and UAE residents exploring Abu 
 - WhatsApp Business API notifications (booking confirmations, reminders).
 
 **Phase 4 — Mobile app**
+
 - Expo app: browse, book, AI planner, boarding-pass-style trip tickets with QR, push notifications, offline itinerary view.
 - Share auth session with web via Auth.js.
 
@@ -173,33 +178,43 @@ Acknowledge these rules in 3 lines, then produce the Phase-0 deliverables listed
 Paste these one at a time in the same Claude Code session. `/clear` before starting a new phase to save tokens.
 
 **Prompt 2 — Design tokens & UI package**
+
 > Build `packages/ui` with shadcn/ui installed and the Aerovy design tokens already specified in Section 1 (`#CDA020`, `#2D151E`, `#E8C868`, plus neutrals). Add dark mode, RTL utilities, and a brief MDX doc in `packages/ui/README.md`. Show me the token file and one Button + Card example using the tokens. Generate the favicon + OG image set from `assets/logo.png` with `sharp`. Stop.
 
 **Prompt 3 — Database schema**
+
 > Design the Prisma schema for Phase 1 in `packages/db/prisma/schema.prisma`: User, Account, Session, Role, Experience, ExperienceCategory, ExperienceMedia, Availability, Booking, BookingItem, Payment, Review, Wishlist, PromoCode, AuditLog. Add indexes and relations. Show an ERD in Mermaid. Wait for approval before running `prisma migrate dev`.
 
 **Prompt 4 — Auth**
+
 > Implement Auth.js v5 in `apps/web` and `apps/admin` with shared config. Email magic link + Google OAuth. Role-based middleware. Protect `/admin/*` behind `ADMIN` or `STAFF`. Add seed script that creates one admin user from env vars.
 
 **Prompt 5 — Public site shell**
+
 > Build the public layout: Navbar (with logo, language switcher EN/AR, currency switcher), Footer, home page hero + "Top experiences in Abu Dhabi" section + trust bar + newsletter. Pull experiences from the DB (seed 20 realistic Abu Dhabi experiences — I'll approve the seed list before you commit it).
 
 **Prompt 6 — Experience listing + detail + search**
+
 > Build `/experiences`, `/experiences/[slug]`, and a filter sidebar (category, price, duration, rating, date). Implement search with Meilisearch or Postgres full-text — recommend one and wait for my pick.
 
 **Prompt 7 — Cart + Stripe checkout**
+
 > Implement cart (Zustand), checkout page, Stripe Checkout session, webhook for payment success, booking creation, confirmation email via Resend + React Email. Use Stripe test mode.
 
 **Prompt 8 — Customer portal**
+
 > `/account` routes: my bookings, upcoming trips, past trips, invoices (PDF via `@react-pdf/renderer`), profile, wishlist, password/email management.
 
 **Prompt 9 — Admin panel v1**
+
 > Build `apps/admin`: login, dashboard (KPIs: revenue, bookings, conversion, top experiences via Recharts), experiences CRUD, bookings list + detail, customers list, CMS for blog MDX. Audit log on every mutation.
 
 **Prompt 10 — Deployment**
+
 > Produce a step-by-step `docs/deployment.md` for Vercel + Neon + Upstash + Inngest + Stripe. Add `vercel.json` if needed. Do a dry-run build locally and report any errors.
 
 **Prompt 11 — Phase 2 kickoff (AI)**
+
 > Build `packages/ai`: Anthropic client, prompt registry, token budget per feature, response cache (Upstash), prompt-injection filter, and a daily spend cap. Then implement the AI Trip Planner chat UI on `/plan` that outputs a day-by-day itinerary linking to our experiences.
 
 (Phases 3 and 4 follow the same one-ticket-at-a-time pattern — don't start them until Phase 2 is stable and getting real traffic.)

@@ -11,7 +11,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint",
+    "lint": "turbo run lint && eslint . --max-warnings=0",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,mjs,cjs,yml,yaml,css}\"",
@@ -19,7 +19,9 @@
     "clean": "turbo run clean && rimraf node_modules .turbo",
     "prepare": "husky || true"
   },
+  "prettier": "@aerovy/config/prettier",
   "devDependencies": {
+    "@aerovy/config": "workspace:*",
     "@types/node": "^20.14.10",
     "eslint": "^9.13.0",
     "husky": "^9.1.6",
@@ -27,6 +29,7 @@
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "rimraf": "^6.0.1",
+    "tailwindcss": "^4.0.0",
     "turbo": "^2.2.3",
     "typescript": "^5.6.3"
   }

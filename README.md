@@ -84,26 +84,26 @@ Full data model ERD, request flows, AI layer, and auth/role matrix: see [`docs/a
 
 ## Tech stack (and why)
 
-| Layer           | Choice                                                          | Why                                                                          |
-| --------------- | --------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| Monorepo        | **pnpm + Turborepo**                                            | Fastest installs, strict hoisting, remote caching for CI free tier.          |
-| Web/Admin       | **Next.js 15 (App Router) + React 19 + TypeScript**             | RSC, streaming, file-based routing, ISR, middleware — all in one.            |
-| Styling         | **Tailwind CSS + shadcn/ui + Framer Motion**                    | Zero runtime CSS, ownable component primitives, no lock-in.                  |
-| i18n            | **next-intl**                                                   | App Router-native, ICU messages, RTL-ready (AR).                             |
-| API             | **tRPC + Zod**                                                  | End-to-end types, no codegen, Zod doubles as runtime validator.              |
-| Jobs            | **Inngest**                                                     | Durable steps, retries, cron — generous free tier, no infra to run.          |
-| DB              | **PostgreSQL (Neon/Supabase) + Prisma**                         | Branch-per-PR DBs on Neon; Prisma for typed migrations.                      |
-| Auth            | **Auth.js (NextAuth v5)**                                       | Magic links + Google OAuth, role column, shared session with Expo (Phase 4). |
-| Payments        | **Stripe** (+ UAE gateway adapter stub)                         | Cards/Apple Pay/Google Pay day-one; Telr/NI pluggable later.                 |
-| Media           | **Cloudflare R2** (or UploadThing)                              | Zero egress fees (R2); UploadThing if we want DX over cost.                  |
-| Search          | **Meilisearch / Algolia**                                       | Final pick in Phase 1 Ticket 9 based on managed free-tier friction.          |
-| AI              | **Claude API (`@anthropic-ai/sdk`)** wrapped in `packages/ai`   | One module, prompt templates, token caps, cache, kill-switch env.            |
-| Email           | **Resend + React Email**                                        | Typed templates; free tier covers early volume.                              |
-| Analytics       | **PostHog Cloud + Vercel Web Analytics**                        | Free tiers; product + perf in one place.                                     |
-| Observability   | **Sentry**                                                      | Free tier for errors + tracing.                                              |
-| Hosting         | **Vercel** (web/admin), **Neon** (DB), **Upstash** (Redis)      | All generous free tiers; zero-ops.                                           |
-| Mobile (P4)     | **Expo + NativeWind**                                           | Shares TS types with monorepo; OTA updates.                                  |
-| Testing         | **Vitest** (unit) + **Playwright** (single happy-path e2e)      | Fast; only business logic is unit-tested.                                    |
+| Layer         | Choice                                                        | Why                                                                          |
+| ------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Monorepo      | **pnpm + Turborepo**                                          | Fastest installs, strict hoisting, remote caching for CI free tier.          |
+| Web/Admin     | **Next.js 15 (App Router) + React 19 + TypeScript**           | RSC, streaming, file-based routing, ISR, middleware — all in one.            |
+| Styling       | **Tailwind CSS + shadcn/ui + Framer Motion**                  | Zero runtime CSS, ownable component primitives, no lock-in.                  |
+| i18n          | **next-intl**                                                 | App Router-native, ICU messages, RTL-ready (AR).                             |
+| API           | **tRPC + Zod**                                                | End-to-end types, no codegen, Zod doubles as runtime validator.              |
+| Jobs          | **Inngest**                                                   | Durable steps, retries, cron — generous free tier, no infra to run.          |
+| DB            | **PostgreSQL (Neon/Supabase) + Prisma**                       | Branch-per-PR DBs on Neon; Prisma for typed migrations.                      |
+| Auth          | **Auth.js (NextAuth v5)**                                     | Magic links + Google OAuth, role column, shared session with Expo (Phase 4). |
+| Payments      | **Stripe** (+ UAE gateway adapter stub)                       | Cards/Apple Pay/Google Pay day-one; Telr/NI pluggable later.                 |
+| Media         | **Cloudflare R2** (or UploadThing)                            | Zero egress fees (R2); UploadThing if we want DX over cost.                  |
+| Search        | **Meilisearch / Algolia**                                     | Final pick in Phase 1 Ticket 9 based on managed free-tier friction.          |
+| AI            | **Claude API (`@anthropic-ai/sdk`)** wrapped in `packages/ai` | One module, prompt templates, token caps, cache, kill-switch env.            |
+| Email         | **Resend + React Email**                                      | Typed templates; free tier covers early volume.                              |
+| Analytics     | **PostHog Cloud + Vercel Web Analytics**                      | Free tiers; product + perf in one place.                                     |
+| Observability | **Sentry**                                                    | Free tier for errors + tracing.                                              |
+| Hosting       | **Vercel** (web/admin), **Neon** (DB), **Upstash** (Redis)    | All generous free tiers; zero-ops.                                           |
+| Mobile (P4)   | **Expo + NativeWind**                                         | Shares TS types with monorepo; OTA updates.                                  |
+| Testing       | **Vitest** (unit) + **Playwright** (single happy-path e2e)    | Fast; only business logic is unit-tested.                                    |
 
 Anything paid or at risk of cost overruns is called out in the doc where it's introduced.
 
@@ -203,27 +203,34 @@ Husky runs `lint-staged` on commit (format + lint changed files only).
 ## Deployment
 
 **Web & Admin → Vercel**
+
 - One Vercel project per app (`apps/web`, `apps/admin`).
 - Env vars mirrored from `.env.example`.
 - Preview deploys per PR with Neon DB branches.
 
 **Database → Neon (or Supabase)**
+
 - Free tier; branch-per-PR via Neon GitHub integration.
 
 **Cache / rate-limit → Upstash Redis**
+
 - REST mode; free tier.
 
 **Background jobs → Inngest**
+
 - Deploy endpoint served from `apps/web/app/api/inngest/route.ts`.
 - Functions defined in `packages/ai` and feature packages.
 
 **Media → Cloudflare R2**
+
 - S3-compatible; no egress fees.
 
 **Email → Resend**
+
 - React Email templates in `packages/emails`.
 
 **Observability**
+
 - Sentry (free tier) + PostHog Cloud + Vercel Web Analytics.
 
 Detailed runbooks live in `docs/ops.md` (added in Phase 1 Ticket 14).
@@ -251,15 +258,15 @@ Logo files (in `./assets/`):
 
 ### Palette (from the official logo — do not invent new colors)
 
-| Token                  | Hex       | Role                                                 |
-| ---------------------- | --------- | ---------------------------------------------------- |
-| `--brand-primary`      | `#CDA020` | Aerovy gold — "A" mark + wordmark                    |
-| `--brand-secondary`    | `#2D151E` | Deep aubergine — paper-airplane, "TRAVELS" wordmark  |
-| `--brand-accent`       | `#E8C868` | Lighter gold highlight — hover/focus                 |
-| `--bg`                 | `#FFFFFF` | Page background (light mode)                         |
-| `--surface`            | `#FAF8F3` | Warm off-white card surface                          |
-| `--text`               | `#2D151E` | Primary text                                         |
-| `--muted`              | `#6B5A5F` | Secondary text, borders                              |
+| Token               | Hex       | Role                                                |
+| ------------------- | --------- | --------------------------------------------------- |
+| `--brand-primary`   | `#CDA020` | Aerovy gold — "A" mark + wordmark                   |
+| `--brand-secondary` | `#2D151E` | Deep aubergine — paper-airplane, "TRAVELS" wordmark |
+| `--brand-accent`    | `#E8C868` | Lighter gold highlight — hover/focus                |
+| `--bg`              | `#FFFFFF` | Page background (light mode)                        |
+| `--surface`         | `#FAF8F3` | Warm off-white card surface                         |
+| `--text`            | `#2D151E` | Primary text                                        |
+| `--muted`           | `#6B5A5F` | Secondary text, borders                             |
 
 These ship in `packages/ui/tokens.css` and a Tailwind preset exposes them as `brand.primary`, `brand.secondary`, `brand.accent` + semantic tokens (delivered in Phase 1 Ticket 2).
 

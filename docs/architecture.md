@@ -339,25 +339,25 @@ Guardrails (mandatory):
 
 NextAuth v5 with a `role` column on `User`. Middleware guards `/admin/*` and `/portal/*`. tRPC procedures are grouped by `publicProcedure`, `protectedProcedure`, `staffProcedure`, `adminProcedure`, `supplierProcedure`.
 
-| Capability                          | CUSTOMER | STAFF | ADMIN | SUPPLIER |
-| ----------------------------------- | :------: | :---: | :---: | :------: |
-| Browse experiences / hotels         |    ✓     |   ✓   |   ✓   |    ✓     |
-| Book & pay                          |    ✓     |   —   |   —   |    —     |
-| View own bookings / invoices        |    ✓     |   —   |   —   |    —     |
-| Wishlist / reviews (own)            |    ✓     |   —   |   —   |    —     |
-| AI trip planner / concierge         |    ✓     |   ✓   |   ✓   |    ✓     |
-| View all bookings                   |    —     |   ✓   |   ✓   |    —     |
-| CRUD all experiences                |    —     |   ✓   |   ✓   |    —     |
-| CRUD own experiences                |    —     |   —   |   —   |    ✓     |
-| Pricing / promos / gift cards       |    —     |   —   |   ✓   |    —     |
-| Refunds & cancellations             |    —     |   ✓   |   ✓   |    —     |
-| User management & roles             |    —     |   —   |   ✓   |    —     |
-| CMS (blog, pages)                   |    —     |   ✓   |   ✓   |    —     |
-| Review moderation                   |    —     |   ✓   |   ✓   |    —     |
-| Supplier payouts (own)              |    —     |   —   |   —   |    ✓     |
-| Supplier payouts (all)              |    —     |   —   |   ✓   |    —     |
-| View audit log                      |    —     |   ✓   |   ✓   |    —     |
-| Feature flags / kill switches       |    —     |   —   |   ✓   |    —     |
+| Capability                    | CUSTOMER | STAFF | ADMIN | SUPPLIER |
+| ----------------------------- | :------: | :---: | :---: | :------: |
+| Browse experiences / hotels   |    ✓     |   ✓   |   ✓   |    ✓     |
+| Book & pay                    |    ✓     |   —   |   —   |    —     |
+| View own bookings / invoices  |    ✓     |   —   |   —   |    —     |
+| Wishlist / reviews (own)      |    ✓     |   —   |   —   |    —     |
+| AI trip planner / concierge   |    ✓     |   ✓   |   ✓   |    ✓     |
+| View all bookings             |    —     |   ✓   |   ✓   |    —     |
+| CRUD all experiences          |    —     |   ✓   |   ✓   |    —     |
+| CRUD own experiences          |    —     |   —   |   —   |    ✓     |
+| Pricing / promos / gift cards |    —     |   —   |   ✓   |    —     |
+| Refunds & cancellations       |    —     |   ✓   |   ✓   |    —     |
+| User management & roles       |    —     |   —   |   ✓   |    —     |
+| CMS (blog, pages)             |    —     |   ✓   |   ✓   |    —     |
+| Review moderation             |    —     |   ✓   |   ✓   |    —     |
+| Supplier payouts (own)        |    —     |   —   |   —   |    ✓     |
+| Supplier payouts (all)        |    —     |   —   |   ✓   |    —     |
+| View audit log                |    —     |   ✓   |   ✓   |    —     |
+| Feature flags / kill switches |    —     |   —   |   ✓   |    —     |
 
 Login methods: email magic link (Resend) + Google OAuth. Sessions are JWT for mobile compatibility in Phase 4.
 
