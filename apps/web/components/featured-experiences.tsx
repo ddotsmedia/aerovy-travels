@@ -16,13 +16,15 @@ function formatAED(n: number, locale: Locale) {
 }
 
 async function loadFeatured() {
+  // No DB configured yet → skip the query entirely and render placeholders.
+  // The server caller would otherwise crash-loop with Prisma init errors.
+  if (!process.env.DATABASE_URL) return null;
   try {
     const { items } = await trpc.experience.list({ featured: true, take: 6 });
     return items;
   } catch (err) {
-    // DB not connected yet (DATABASE_URL unset): fall back to placeholders.
     if (process.env.NODE_ENV === "development") {
-      console.warn("experience.list failed — showing placeholders", err);
+      console.warn("experience.list failed — showing placeholders:", (err as Error).message);
     }
     return null;
   }
