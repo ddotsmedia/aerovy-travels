@@ -1,0 +1,43 @@
+AEROVY TRAVELS - QUICK START
+============================
+
+ONE-TIME SETUP (only if you don't already have them):
+  1. Install VS Code:  https://code.visualstudio.com/download
+       - During install, tick "Add to PATH"
+       - Or from inside VS Code run:
+           Command Palette (Ctrl+Shift+P) -> "Shell Command: Install 'code' command in PATH"
+  2. Install Node.js LTS:  https://nodejs.org
+  3. (Optional - the launcher can do this for you) Install Claude Code CLI:
+         npm install -g @anthropic-ai/claude-code
+     Then sign in once by running:  claude
+
+TO START WORKING:
+  1. Move this entire "aerovy-travels" folder anywhere you like
+     (e.g. C:\Projects\aerovy-travels).
+  2. Double-click start.cmd
+     - It checks VS Code + Node + Claude Code are installed.
+     - It opens the folder in VS Code.
+     - It copies Section 1 of the prompt to your clipboard.
+  3. In VS Code open a terminal (Ctrl + `) and run:
+         claude
+  4. Paste (Ctrl+V) the prompt and press Enter.
+
+FILES IN THIS FOLDER:
+  CLAUDE_CODE_PROMPT.md       The master prompt (4 sections).
+  assets/logo.png             Web logo (transparent PNG, 800x641).
+  assets/logo-small.png       Small logo (400x321) for favicons.
+  assets/logo-source.pdf      Original vector artwork (print only).
+  start.cmd                   Double-click launcher (Windows).
+  start.ps1                   PowerShell script the launcher runs.
+
+CREDIT-SAVING REMINDERS:
+  - Work phase by phase. Do NOT ask Claude Code to "build everything."
+  - Between unrelated phases run  /clear  inside Claude Code to reset context.
+  - For boilerplate/CRUD work, run  /model  and pick a cheaper model.
+  - Review each plan before letting it write code.
+
+Troubleshooting:
+  - "code is not recognized": VS Code isn't on PATH. See step 1 above.
+  - "claude is not recognized": install Node, then  npm i -g @anthropic-ai/claude-code
+  - PowerShell blocks the script: the .cmd wrapper bypasses execution policy,
+    so always launch via start.cmd (not by right-clicking the .ps1).
