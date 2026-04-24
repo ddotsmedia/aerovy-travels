@@ -5,8 +5,11 @@ import { cn } from "@aerovy/ui";
 import { tajawal, inter } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TRPCProvider } from "@/lib/trpc/provider";
+import { AnnouncementBar } from "@/components/announcement-bar";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { WhatsAppFab } from "@/components/whatsapp-fab";
+import { CookieBanner } from "@/components/cookie-banner";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -22,10 +25,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
-  twitter: {
-    card: "summary_large_image",
-    images: ["/og-image.png"],
-  },
+  twitter: { card: "summary_large_image", images: ["/og-image.png"] },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "32x32" },
@@ -61,11 +61,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             enableSystem
             disableTransitionOnChange
           >
+            <AnnouncementBar />
             <div className="flex min-h-dvh flex-col">
               <SiteHeader />
               <main className="flex-1">{children}</main>
               <SiteFooter />
             </div>
+            <WhatsAppFab />
+            <CookieBanner />
           </ThemeProvider>
         </TRPCProvider>
       </body>

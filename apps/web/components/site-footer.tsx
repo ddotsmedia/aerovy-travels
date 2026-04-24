@@ -8,8 +8,8 @@ export function SiteFooter() {
 
   return (
     <footer className="border-border bg-surface border-t">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.5fr_repeat(4,1fr)]">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[1.3fr_repeat(5,1fr)]">
           <div>
             <BrandLogo />
             <p className="text-muted mt-4 max-w-sm text-sm">{site.description}</p>
@@ -62,20 +62,33 @@ export function SiteFooter() {
             </div>
           </div>
 
+          <FooterColumn title="Book" links={footerNav.book} />
           <FooterColumn title="Discover" links={footerNav.discover} />
-          <FooterColumn title="Plan" links={footerNav.plan} />
+          <FooterColumn title="Services" links={footerNav.services} />
+          <FooterColumn title="Support" links={footerNav.support} />
           <FooterColumn title="Company" links={footerNav.company} />
-          <FooterColumn title="Legal" links={footerNav.legal} />
         </div>
 
-        <div className="border-border text-muted mt-12 flex flex-col items-start justify-between gap-4 border-t pt-8 text-sm sm:flex-row sm:items-center">
-          <p>
-            © {year} {site.name}. All rights reserved.
-          </p>
-          <p className="text-xs">
-            Registered in Abu Dhabi · Trade License pending · A member of the UAE Travel Agents
-            Association.
-          </p>
+        <div className="border-border text-muted mt-10 flex flex-col gap-4 border-t pt-6 text-sm">
+          <div className="flex flex-wrap gap-4">
+            {footerNav.legal.map((l) => (
+              <Link key={l.href} href={l.href} className="hover:text-brand-primary text-xs">
+                {l.label}
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+            <p className="text-xs">
+              © {year} {site.name} FZ-LLC. Registered in Abu Dhabi · Trade License pending · Member,
+              UAE Travel Agents Association · Department of Culture & Tourism accredited.
+            </p>
+            <div className="flex items-center gap-3 text-xs">
+              <span className="border-border rounded-md border px-2 py-1">
+                Stripe · PCI-DSS Level 1
+              </span>
+              <span className="border-border rounded-md border px-2 py-1">SSL / TLS 1.3</span>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
@@ -91,7 +104,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h3 className="text-text text-sm font-semibold tracking-wide uppercase">{title}</h3>
+      <h3 className="text-text text-xs font-semibold tracking-wide uppercase">{title}</h3>
       <ul className="text-muted mt-4 space-y-2 text-sm">
         {links.map((l) => (
           <li key={l.href}>

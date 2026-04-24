@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@aerovy/ui";
 import { BrandLogo } from "./brand-logo";
 import { ThemeToggle } from "./theme-toggle";
+import { CurrencySelector } from "./currency-selector";
 import { primaryNav } from "@/lib/site";
 import { MobileNav } from "./mobile-nav";
 import { Search, ShoppingBag, User } from "lucide-react";
@@ -29,6 +30,9 @@ export function SiteHeader() {
         </div>
 
         <div className="flex items-center gap-2">
+          <div className="hidden md:block">
+            <CurrencySelector />
+          </div>
           <Link
             href="/experiences"
             className="text-text hover:bg-surface hidden h-10 w-10 items-center justify-center rounded-md md:flex"

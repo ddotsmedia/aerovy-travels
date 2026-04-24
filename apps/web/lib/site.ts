@@ -4,7 +4,7 @@ export const site = {
   shortName: "Aerovy",
   tagline: "Abu Dhabi, handcrafted.",
   description:
-    "Premium, AI-assisted travel platform for Abu Dhabi — tours, desert safaris, hotels, airport transfers, and custom itineraries.",
+    "Premium, AI-assisted travel platform for Abu Dhabi — tours, desert safaris, hotels, airport transfers, flights, visas and custom itineraries.",
   email: "hello@aerovy.travel",
   phone: "+971 2 555 0100",
   whatsapp: "+971 50 123 4567",
@@ -19,41 +19,62 @@ export const site = {
 };
 
 export const primaryNav = [
-  { href: "/experiences", label: "Experiences" },
+  { href: "/flights", label: "Flights" },
   { href: "/hotels", label: "Hotels" },
+  { href: "/experiences", label: "Experiences" },
+  { href: "/cruises", label: "Cruises" },
   { href: "/packages", label: "Packages" },
-  { href: "/transfers", label: "Transfers" },
+  { href: "/deals", label: "Deals" },
   { href: "/plan", label: "AI Planner" },
-  { href: "/blog", label: "Journal" },
 ] as const;
 
 export const footerNav = {
+  book: [
+    { href: "/flights", label: "Flights" },
+    { href: "/hotels", label: "Hotels" },
+    { href: "/experiences", label: "Experiences" },
+    { href: "/transfers", label: "Transfers" },
+    { href: "/cruises", label: "Cruises & yachts" },
+    { href: "/packages", label: "Packages" },
+    { href: "/events", label: "Events" },
+  ],
   discover: [
-    { href: "/experiences", label: "All experiences" },
+    { href: "/destinations", label: "Destinations" },
     { href: "/experiences?category=cultural", label: "Cultural & heritage" },
     { href: "/experiences?category=desert", label: "Desert & adventure" },
     { href: "/experiences?category=theme-parks", label: "Theme parks" },
     { href: "/experiences?category=nature", label: "Nature" },
-    { href: "/experiences?category=dining", label: "Dining & nightlife" },
+    { href: "/blog", label: "Journal" },
+    { href: "/deals", label: "Deals" },
   ],
-  plan: [
+  services: [
+    { href: "/visa", label: "UAE visa" },
+    { href: "/insurance", label: "Travel insurance" },
+    { href: "/rewards", label: "Aerovy Rewards" },
+    { href: "/gift-cards", label: "Gift cards" },
+    { href: "/groups", label: "Group bookings" },
+    { href: "/corporate", label: "Corporate travel" },
     { href: "/plan", label: "AI Trip Planner" },
-    { href: "/packages", label: "Curated packages" },
-    { href: "/hotels", label: "Hotels" },
-    { href: "/transfers", label: "Airport transfers" },
-    { href: "/concierge", label: "Concierge desk" },
+  ],
+  support: [
+    { href: "/help", label: "Help centre" },
+    { href: "/track", label: "Track a booking" },
+    { href: "/contact", label: "Contact" },
+    { href: "/faq", label: "FAQ" },
+    { href: "/reviews", label: "Reviews" },
+    { href: "/cancellation", label: "Cancellation policy" },
   ],
   company: [
     { href: "/about", label: "About us" },
-    { href: "/contact", label: "Contact" },
     { href: "/careers", label: "Careers" },
     { href: "/press", label: "Press" },
     { href: "/blog", label: "Journal" },
+    { href: "/partners", label: "Become a supplier" },
   ],
   legal: [
-    { href: "/faq", label: "FAQ" },
     { href: "/terms", label: "Terms of service" },
     { href: "/privacy", label: "Privacy policy" },
+    { href: "/cookies", label: "Cookie policy" },
     { href: "/cancellation", label: "Cancellation policy" },
   ],
 };
