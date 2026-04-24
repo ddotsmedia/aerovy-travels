@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@aerovy/config/tsconfig/base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": ".",
+    "lib": ["ES2023"],
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts", "generated/client/index.d.ts"],
+  "exclude": ["node_modules", "dist", ".turbo", "generated/client/runtime"]
+}

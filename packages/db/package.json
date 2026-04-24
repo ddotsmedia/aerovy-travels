@@ -1,0 +1,43 @@
+{
+  "name": "@aerovy/db",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Aerovy Travels — Prisma schema and singleton client.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    },
+    "./client": {
+      "types": "./src/client.ts",
+      "import": "./src/client.ts"
+    }
+  },
+  "files": [
+    "src",
+    "prisma",
+    "generated"
+  ],
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:studio": "prisma studio",
+    "db:reset": "prisma migrate reset",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@aerovy/config": "workspace:*",
+    "@prisma/client": "^6.0.1"
+  },
+  "devDependencies": {
+    "prisma": "^6.0.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

@@ -40,8 +40,10 @@ Thumbs.db
 !.vscode/extensions.json
 !.vscode/settings.json.example
 
-# Prisma generated
+# Prisma generated client
 packages/db/generated/
+packages/db/prisma/.migrate.lock
+packages/db/prisma/dev.db*
 
 # Misc
 .cache/
