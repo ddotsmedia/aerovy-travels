@@ -22,7 +22,8 @@
     "db:push": "pnpm --filter @aerovy/db db:push",
     "db:migrate": "pnpm --filter @aerovy/db db:migrate",
     "db:studio": "pnpm --filter @aerovy/db db:studio",
-    "db:reset": "pnpm --filter @aerovy/db db:reset"
+    "db:reset": "pnpm --filter @aerovy/db db:reset",
+    "db:seed": "pnpm --filter @aerovy/db db:seed"
   },
   "prettier": "@aerovy/config/prettier",
   "devDependencies": {

@@ -7,6 +7,6 @@
     "lib": ["ES2023"],
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "generated/client/index.d.ts"],
+  "include": ["src/**/*.ts", "prisma/**/*.ts", "generated/client/index.d.ts"],
   "exclude": ["node_modules", "dist", ".turbo", "generated/client/runtime"]
 }
