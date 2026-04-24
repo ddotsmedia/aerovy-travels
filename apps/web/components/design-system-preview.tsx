@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import {
   Button,
   Card,
@@ -11,20 +10,18 @@ import {
 } from "@aerovy/ui";
 
 export function DesignSystemPreview() {
-  const t = useTranslations("designSystem");
-
   return (
     <section className="border-border bg-surface border-y">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <header className="mb-8 max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight">{t("title")}</h2>
-          <p className="text-muted mt-2">{t("subtitle")}</p>
+          <h2 className="text-3xl font-bold tracking-tight">Design system preview</h2>
+          <p className="text-muted mt-2">Primitives rendered against the live brand tokens.</p>
         </header>
 
         <div className="grid gap-6 lg:grid-cols-3">
           <Card>
             <CardHeader>
-              <CardTitle>{t("buttons")}</CardTitle>
+              <CardTitle>Buttons</CardTitle>
               <CardDescription>Variants × sizes</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
@@ -44,7 +41,7 @@ export function DesignSystemPreview() {
 
           <Card>
             <CardHeader>
-              <CardTitle>{t("card")}</CardTitle>
+              <CardTitle>Card</CardTitle>
               <CardDescription>Surface + border + shadow</CardDescription>
             </CardHeader>
             <CardContent>
@@ -61,11 +58,11 @@ export function DesignSystemPreview() {
 
           <Card>
             <CardHeader>
-              <CardTitle>{t("input")}</CardTitle>
+              <CardTitle>Input</CardTitle>
               <CardDescription>Bordered, token-driven focus ring</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
-              <Input placeholder={t("searchPlaceholder")} />
+              <Input placeholder="Search Abu Dhabi..." />
               <Input type="email" placeholder="you@example.com" />
               <Input disabled placeholder="Disabled" />
             </CardContent>

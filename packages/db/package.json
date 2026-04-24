@@ -12,6 +12,10 @@
     "./client": {
       "types": "./src/client.ts",
       "import": "./src/client.ts"
+    },
+    "./prisma/seed-data": {
+      "types": "./prisma/seed-data.ts",
+      "import": "./prisma/seed-data.ts"
     }
   },
   "files": [
