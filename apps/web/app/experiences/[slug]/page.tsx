@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Clock, MapPin, Star, Check, Users, Calendar, Share2, Heart } from "lucide-react";
+import { Clock, MapPin, Star, Check, Users, Share2, Heart } from "lucide-react";
 import { Button, Card, CardContent } from "@aerovy/ui";
+import { BookingCard } from "@/components/booking-card";
 import { ExperienceCard } from "@/components/experience-card";
 import { getExperienceBySlug, relatedExperiences } from "@/lib/catalog";
 import { fmtAED, fmtDuration } from "@/lib/site";
@@ -37,7 +38,6 @@ export default async function ExperienceDetailPage({
   if (!e) notFound();
 
   const related = relatedExperiences(e);
-  const minPrice = Math.min(...e.variants.map((v) => v.basePriceAED));
   const maxPax = Math.max(...e.variants.map((v) => v.maxPax));
 
   // Fake 4 future slots spaced 7 days apart (seed script does the same).
@@ -249,46 +249,7 @@ export default async function ExperienceDetailPage({
 
           {/* Sticky sidebar */}
           <aside className="relative lg:sticky lg:top-24 lg:self-start">
-            <Card>
-              <CardContent className="p-6">
-                <p className="text-muted text-xs tracking-wide uppercase">From</p>
-                <p className="mt-1 text-3xl font-bold">{fmtAED(minPrice)}</p>
-                <p className="text-muted text-xs">per person · taxes included</p>
-
-                <div className="mt-6 space-y-3 text-sm">
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted inline-flex items-center gap-2">
-                      <Calendar className="size-4" aria-hidden="true" />
-                      Date
-                    </span>
-                    <span className="font-medium">
-                      {slots[0]?.toLocaleDateString("en", { month: "short", day: "numeric" })}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted inline-flex items-center gap-2">
-                      <Users className="size-4" aria-hidden="true" />
-                      Guests
-                    </span>
-                    <span className="font-medium">2 adults</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted inline-flex items-center gap-2">
-                      <Clock className="size-4" aria-hidden="true" />
-                      Duration
-                    </span>
-                    <span className="font-medium">{fmtDuration(e.durationMinutes)}</span>
-                  </div>
-                </div>
-
-                <Button size="lg" fullWidth className="mt-6">
-                  Reserve now
-                </Button>
-                <p className="text-muted mt-3 text-center text-xs">
-                  You won&rsquo;t be charged until confirmed.
-                </p>
-              </CardContent>
-            </Card>
+            <BookingCard experience={e} />
           </aside>
         </div>
       </section>

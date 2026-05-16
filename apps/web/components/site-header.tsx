@@ -5,7 +5,8 @@ import { ThemeToggle } from "./theme-toggle";
 import { CurrencySelector } from "./currency-selector";
 import { primaryNav } from "@/lib/site";
 import { MobileNav } from "./mobile-nav";
-import { Search, ShoppingBag, User } from "lucide-react";
+import { CartIconButton } from "./cart-icon-button";
+import { Search, User } from "lucide-react";
 
 export function SiteHeader() {
   return (
@@ -40,13 +41,7 @@ export function SiteHeader() {
           >
             <Search className="size-4" aria-hidden="true" />
           </Link>
-          <Link
-            href="/cart"
-            className="text-text hover:bg-surface hidden h-10 w-10 items-center justify-center rounded-md md:flex"
-            aria-label="Cart"
-          >
-            <ShoppingBag className="size-4" aria-hidden="true" />
-          </Link>
+          <CartIconButton />
           <ThemeToggle />
           <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
             <Link href="/signin">
