@@ -24,7 +24,11 @@ export function getCategoryBySlug(slug: string) {
 }
 
 export function fromPrice(e: Experience): number {
-  return Math.min(...e.variants.map((v) => v.basePriceAED));
+  return e.variants.length ? Math.min(...e.variants.map((v) => v.basePriceAED)) : 0;
+}
+
+export function getMaxPax(e: Experience): number {
+  return e.variants.length ? Math.max(...e.variants.map((v) => v.maxPax)) : 0;
 }
 
 export function relatedExperiences(e: Experience, limit = 4): Experience[] {

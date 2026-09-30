@@ -1,8 +1,9 @@
 "use client";
-import { useEffect } from "react";
-import { Button } from "@aerovy/ui";
 
-export default function GlobalError({
+import { useEffect } from "react";
+import Link from "next/link";
+
+export default function Error({
   error,
   reset,
 }: {
@@ -14,13 +15,28 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-2xl flex-col items-center justify-center gap-4 px-4 text-center">
-      <p className="text-danger text-sm font-medium tracking-wide uppercase">Error</p>
-      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Something went wrong.</h1>
-      <p className="text-muted">We&rsquo;re looking into it. Try again in a moment.</p>
-      <Button onClick={() => reset()} className="mt-2">
-        Try again
-      </Button>
+    <div className="flex min-h-screen flex-col items-center justify-center px-4 py-16 text-center">
+      <div className="space-y-6">
+        <h1 className="text-brand-primary text-6xl font-bold">Error</h1>
+        <h2 className="text-3xl font-bold">Something went wrong</h2>
+        <p className="text-muted-foreground text-lg">
+          An unexpected error occurred. Please try again.
+        </p>
+        <div className="flex justify-center gap-4">
+          <button
+            onClick={reset}
+            className="bg-brand-primary text-brand-secondary inline-block rounded-lg px-6 py-3 font-semibold transition-opacity hover:opacity-90"
+          >
+            Try Again
+          </button>
+          <Link
+            href="/"
+            className="border-brand-primary text-brand-primary hover:bg-brand-primary/10 inline-block rounded-lg border-2 px-6 py-3 font-semibold transition-colors"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { ExperienceCard } from "@/components/experience-card";
 import { SortSelect } from "@/components/sort-select";
@@ -17,7 +18,7 @@ type SearchParams = Promise<{
 
 function sortExperiences(list: typeof experiences, mode: string | undefined) {
   const price = (e: (typeof experiences)[number]) =>
-    Math.min(...e.variants.map((v) => v.basePriceAED));
+    e.variants.length ? Math.min(...e.variants.map((v) => v.basePriceAED)) : 0;
   const sorted = [...list];
   switch (mode) {
     case "price-asc":
@@ -117,7 +118,9 @@ export default async function ExperiencesPage({ searchParams }: { searchParams: 
               </Link>
             ))}
           </div>
-          <SortSelect />
+          <Suspense fallback={<div className="bg-surface h-9 w-32 animate-pulse rounded-md" />}>
+            <SortSelect />
+          </Suspense>
           {/* `sort` read from URL by the select + main page; both happen server-side. */}
           <span className="sr-only">{sort ?? ""}</span>
         </div>

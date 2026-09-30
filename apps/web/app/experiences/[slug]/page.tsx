@@ -6,7 +6,7 @@ import { Clock, MapPin, Star, Check, Users, Share2, Heart } from "lucide-react";
 import { Button, Card, CardContent } from "@aerovy/ui";
 import { BookingCard } from "@/components/booking-card";
 import { ExperienceCard } from "@/components/experience-card";
-import { getExperienceBySlug, relatedExperiences } from "@/lib/catalog";
+import { getExperienceBySlug, relatedExperiences, getMaxPax } from "@/lib/catalog";
 import { fmtAED, fmtDuration } from "@/lib/site";
 
 // Lazy-render so Next doesn't prefetch image metadata for every slug at build.
@@ -38,7 +38,7 @@ export default async function ExperienceDetailPage({
   if (!e) notFound();
 
   const related = relatedExperiences(e);
-  const maxPax = Math.max(...e.variants.map((v) => v.maxPax));
+  const maxPax = getMaxPax(e);
 
   // Fake 4 future slots spaced 7 days apart (seed script does the same).
   const now = new Date();

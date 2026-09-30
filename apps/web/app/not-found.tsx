@@ -1,23 +1,20 @@
 import Link from "next/link";
-import { Button } from "@aerovy/ui";
 
 export default function NotFound() {
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-2xl flex-col items-center justify-center gap-4 px-4 text-center">
-      <p className="text-brand-primary text-sm font-medium tracking-wide uppercase">404</p>
-      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-        We couldn&rsquo;t find that page.
-      </h1>
-      <p className="text-muted">
-        The page you&rsquo;re looking for may have moved or the link may be broken.
-      </p>
-      <div className="mt-4 flex flex-wrap gap-3">
-        <Button asChild>
-          <Link href="/">Back to home</Link>
-        </Button>
-        <Button variant="outline" asChild>
-          <Link href="/experiences">Browse experiences</Link>
-        </Button>
+    <div className="flex min-h-screen flex-col items-center justify-center px-4 py-16 text-center">
+      <div className="space-y-6">
+        <h1 className="text-brand-primary text-6xl font-bold">404</h1>
+        <h2 className="text-3xl font-bold">Page Not Found</h2>
+        <p className="text-muted-foreground text-lg">
+          The page you&apos;re looking for doesn&apos;t exist or has been moved.
+        </p>
+        <Link
+          href="/"
+          className="bg-brand-primary text-brand-secondary inline-block rounded-lg px-6 py-3 font-semibold transition-opacity hover:opacity-90"
+        >
+          Back to Home
+        </Link>
       </div>
     </div>
   );
