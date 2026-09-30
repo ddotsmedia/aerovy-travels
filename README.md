@@ -233,6 +233,26 @@ Husky runs `lint-staged` on commit (format + lint changed files only).
 
 - Sentry (free tier) + PostHog Cloud + Vercel Web Analytics.
 
+**GitHub Actions CI/CD (VPS Deployment)**
+
+Configure these secrets in GitHub Settings → Secrets and variables → Actions:
+
+| Secret                | Value                      |
+| --------------------- | -------------------------- |
+| `VPS_HOST`            | `194.164.151.202`          |
+| `VPS_USER`            | `root`                     |
+| `VPS_SSH_KEY`         | (Paste private SSH key)    |
+| `NEXT_PUBLIC_APP_URL` | `https://abucoffeemile.ae` |
+
+Deployment workflow (`.github/workflows/deploy.yml`) auto-triggers on push to `main`:
+
+1. Installs dependencies with pnpm
+2. Builds `@aerovy/web` with env vars
+3. Deploys to VPS via SSH
+4. Restarts app with `pm2 restart aerovy-web`
+
+See `ecosystem.config.js` for PM2 process config.
+
 Detailed runbooks live in `docs/ops.md` (added in Phase 1 Ticket 14).
 
 ---
