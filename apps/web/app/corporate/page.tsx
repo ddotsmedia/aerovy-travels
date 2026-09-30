@@ -1,130 +1,143 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Briefcase, Plane, Building2, BarChart3, Shield, CreditCard } from "lucide-react";
-import { Button, Card, CardContent, Input } from "@aerovy/ui";
+
+import { useForm } from "react-hook-form";
 
 export const metadata: Metadata = {
-  title: "Corporate travel",
-  description: "B2B travel desk — flights, hotels, MICE, consolidated invoicing.",
+  title: "Corporate Travel Solutions · Aerovy Travels",
+  description:
+    "Streamlined corporate travel management, group bookings, and business travel solutions for companies.",
 };
 
 export default function CorporatePage() {
+  const benefits = [
+    {
+      title: "Dedicated Account Manager",
+      desc: "Personal support for all your corporate travel needs 24/7",
+    },
+    {
+      title: "Bulk Discounts",
+      desc: "Up to 25% savings on flights, hotels, and packages for groups",
+    },
+    {
+      title: "Centralized Billing",
+      desc: "Single invoice, multiple travelers, seamless expense tracking",
+    },
+    {
+      title: "Flexible Policies",
+      desc: "Custom cancellation & modification terms tailored to your company",
+    },
+  ];
+
   return (
-    <>
-      <section className="bg-surface">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-          <nav className="text-muted mb-4 text-sm">
-            <Link href="/" className="hover:text-brand-primary">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-text">Corporate</span>
-          </nav>
-          <div className="text-brand-primary flex items-center gap-2">
-            <Briefcase className="size-4" aria-hidden="true" />
-            <span className="text-xs font-medium tracking-wide uppercase">Corporate travel</span>
-          </div>
-          <h1 className="mt-2 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
-            One desk for every business trip to the UAE.
-          </h1>
-          <p className="text-muted mt-4 max-w-2xl text-lg">
-            Dedicated account managers, consolidated monthly invoicing in AED or USD, custom policy
-            enforcement, and a portal built for finance teams.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button size="lg" asChild>
-              <Link href="#request">Request a demo</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/contact?topic=corporate">Talk to sales</Link>
-            </Button>
-          </div>
-        </div>
+    <main className="min-h-screen bg-white">
+      {/* Hero */}
+      <section className="bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-16 text-center text-white md:py-24">
+        <h1 className="mb-4 text-4xl font-bold md:text-5xl">Corporate Travel Solutions</h1>
+        <p className="mx-auto mb-8 max-w-2xl text-lg opacity-90">
+          Streamlined group bookings, account management, and exclusive corporate rates for your
+          team.
+        </p>
+        <button className="rounded-lg border border-blue-600 bg-white px-6 py-3 font-semibold text-blue-600 transition-colors hover:bg-gray-50">
+          Schedule a Demo
+        </button>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight">What&rsquo;s included</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            {
-              icon: Plane,
-              t: "Flight management",
-              d: "Preferred airline agreements, pre-approval workflows, OBT integration.",
-            },
-            {
-              icon: Building2,
-              t: "Hotel + serviced apartments",
-              d: "Negotiated corporate rates across 400+ UAE properties.",
-            },
-            {
-              icon: BarChart3,
-              t: "Reporting & analytics",
-              d: "Monthly spend, CO₂ footprint, policy compliance dashboards.",
-            },
-            {
-              icon: CreditCard,
-              t: "Consolidated invoicing",
-              d: "One invoice per month, per entity. VAT-compliant.",
-            },
-            {
-              icon: Shield,
-              t: "Duty of care",
-              d: "24/7 traveller tracking, emergency-ops desk, risk alerts.",
-            },
-            {
-              icon: Briefcase,
-              t: "MICE & incentives",
-              d: "Venue sourcing, group bookings, full event management.",
-            },
-          ].map((p) => (
-            <Card key={p.t}>
-              <CardContent className="p-6">
-                <p.icon className="text-brand-primary size-6" aria-hidden="true" />
-                <h3 className="mt-4 font-semibold">{p.t}</h3>
-                <p className="text-muted mt-2 text-sm">{p.d}</p>
-              </CardContent>
-            </Card>
+      {/* Benefits Grid */}
+      <section className="mx-auto max-w-7xl px-4 py-16 md:py-20">
+        <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">
+          Why Choose Aerovy Corporate?
+        </h2>
+
+        <div className="grid gap-8 md:grid-cols-2">
+          {benefits.map((benefit, idx) => (
+            <div key={idx} className="flex gap-4">
+              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-600">
+                {idx + 1}
+              </div>
+              <div>
+                <h3 className="mb-2 text-lg font-semibold text-gray-900">{benefit.title}</h3>
+                <p className="text-gray-600">{benefit.desc}</p>
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
-      <section id="request" className="bg-surface">
-        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold tracking-tight">Request a demo</h2>
-          <p className="text-muted mt-2">
-            A dedicated account manager will reach out within 1 business day with a tailored
-            proposal.
-          </p>
-          <form className="border-border bg-bg mt-6 space-y-4 rounded-2xl border p-6">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Input placeholder="Company" required />
-              <Input placeholder="Your role" />
-              <Input placeholder="Work email" type="email" required />
-              <Input placeholder="Phone / WhatsApp" type="tel" />
-              <label className="sm:col-span-2">
-                <span className="text-sm font-medium">Approximate annual travel volume</span>
-                <select className="border-border bg-bg mt-1 h-10 w-full rounded-md border px-3 text-sm">
-                  <option>&lt; AED 500K</option>
-                  <option>AED 500K – 2M</option>
-                  <option>AED 2M – 10M</option>
-                  <option>AED 10M+</option>
-                </select>
-              </label>
-              <label className="sm:col-span-2">
-                <span className="text-sm font-medium">Tell us about your needs</span>
-                <textarea
-                  rows={4}
-                  className="border-border bg-bg mt-1 w-full rounded-md border px-3 py-2 text-sm"
-                  placeholder="MICE events? Traveller tracking? Specific destinations?"
-                />
-              </label>
-            </div>
-            <Button size="lg" fullWidth type="submit">
-              Request demo
-            </Button>
-          </form>
+      {/* Client Logos */}
+      <section className="bg-gray-50 px-4 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl">
+          <h2 className="mb-12 text-center text-2xl font-bold text-gray-900">
+            Trusted by Leading Companies
+          </h2>
+
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+            {["Company A", "Company B", "Company C", "Company D"].map((company, i) => (
+              <div
+                key={i}
+                className="flex h-24 items-center justify-center rounded-lg border border-gray-200 bg-white p-8"
+              >
+                <span className="font-semibold text-gray-400">{company}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-    </>
+
+      {/* Enquiry Form */}
+      <section className="mx-auto max-w-4xl px-4 py-16 md:py-20">
+        <h2 className="mb-8 text-center text-3xl font-bold text-gray-900">Get a Custom Quote</h2>
+
+        <form className="rounded-lg border border-gray-200 bg-white p-8">
+          <div className="mb-6 grid gap-6 md:grid-cols-2">
+            <input
+              placeholder="Company Name *"
+              className="rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              required
+            />
+            <input
+              placeholder="Contact Name *"
+              className="rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              required
+            />
+          </div>
+
+          <div className="mb-6 grid gap-6 md:grid-cols-2">
+            <input
+              type="email"
+              placeholder="Email Address *"
+              className="rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              required
+            />
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              className="rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          </div>
+
+          <div className="mb-6">
+            <input
+              type="number"
+              placeholder="Approx. travelers per month *"
+              min="1"
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <textarea
+              placeholder="Tell us about your travel needs..."
+              rows={4}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          </div>
+
+          <button className="w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700">
+            Send Enquiry
+          </button>
+        </form>
+      </section>
+    </main>
   );
 }

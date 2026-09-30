@@ -1,145 +1,148 @@
 import type { Metadata } from "next";
+
 import Link from "next/link";
-import { Star, Gift, TrendingUp, Users, Crown } from "lucide-react";
-import { Button, Card, CardContent } from "@aerovy/ui";
 
 export const metadata: Metadata = {
-  title: "Aerovy Rewards",
-  description: "Earn points on every booking. Redeem for upgrades, free nights, and experiences.",
+  title: "Aerovy Rewards · Loyalty Program",
+  description:
+    "Join Aerovy Rewards and earn points on every booking. Get exclusive benefits, tier upgrades, and VIP perks.",
 };
 
-const tiers = [
-  {
-    name: "Sand",
-    spend: "AED 0",
-    perks: ["1 point per AED 10", "Free cancellation 24h before", "Priority WhatsApp support"],
-    color: "bg-muted/20",
-  },
-  {
-    name: "Gold",
-    spend: "AED 10,000 / year",
-    perks: [
-      "1.5 points per AED 10",
-      "Complimentary hotel upgrade (subject to availability)",
-      "Early-access to flash sales",
-      "Airport meet-and-greet on any booking",
-    ],
-    color: "bg-brand-primary/30",
-    featured: true,
-  },
-  {
-    name: "Platinum",
-    spend: "AED 50,000 / year",
-    perks: [
-      "2 points per AED 10",
-      "Guaranteed hotel upgrade",
-      "Dedicated concierge (by name)",
-      "Invitation-only events",
-      "Annual 2-night stay on us",
-    ],
-    color: "bg-brand-secondary/30",
-  },
-];
-
 export default function RewardsPage() {
+  const tiers = [
+    {
+      name: "Silver",
+      pointsNeeded: 0,
+      benefits: ["1 point per AED spent", "Birthday bonus", "Email support"],
+      color: "from-gray-400 to-gray-500",
+    },
+    {
+      name: "Gold",
+      pointsNeeded: 5000,
+      benefits: [
+        "1.5 points per AED spent",
+        "20% point bonus",
+        "Priority support",
+        "Exclusive deals",
+      ],
+      color: "from-yellow-400 to-yellow-500",
+    },
+    {
+      name: "Platinum",
+      pointsNeeded: 15000,
+      benefits: [
+        "2 points per AED spent",
+        "50% point bonus",
+        "24/7 VIP concierge",
+        "Upgrade perks",
+        "Free cancellation",
+      ],
+      color: "from-purple-400 to-purple-500",
+    },
+  ];
+
   return (
-    <>
-      <section className="bg-brand-secondary text-bg relative overflow-hidden">
-        <div className="bg-brand-primary/30 pointer-events-none absolute -top-40 -right-40 -z-10 size-[32rem] rounded-full blur-3xl" />
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <nav className="text-bg/70 mb-4 text-sm">
-            <Link href="/" className="hover:text-brand-primary">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <span>Rewards</span>
-          </nav>
-          <div className="text-brand-primary flex items-center gap-2">
-            <Crown className="size-4" aria-hidden="true" />
-            <span className="text-xs font-medium tracking-wide uppercase">Aerovy Rewards</span>
-          </div>
-          <h1 className="mt-2 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
-            Every trip gets you closer to the next one.
-          </h1>
-          <p className="text-bg/80 mt-4 max-w-2xl">
-            Earn points on flights, hotels, experiences, and transfers. Redeem them for upgrades,
-            free nights, and exclusive experiences. Always free to join, never expiring.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button size="lg" asChild>
-              <Link href="/signup">Join Rewards — free</Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-              className="border-bg/30 text-bg hover:bg-bg/10"
-            >
-              <Link href="/rewards/how-it-works">How it works</Link>
-            </Button>
-          </div>
-        </div>
+    <main className="min-h-screen bg-white">
+      {/* Hero */}
+      <section className="bg-gradient-to-r from-amber-600 to-amber-700 px-4 py-16 text-center text-white md:py-24">
+        <h1 className="mb-4 text-4xl font-bold md:text-5xl">Aerovy Rewards</h1>
+        <p className="mx-auto mb-8 max-w-2xl text-lg opacity-90">
+          Earn points on every booking. Unlock exclusive benefits, upgrades, and VIP experiences.
+        </p>
+        <button className="rounded-lg bg-amber-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-amber-700">
+          Join Now
+        </button>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold tracking-tight">Three tiers, clear benefits.</h2>
-        <div className="mt-8 grid gap-6 lg:grid-cols-3">
-          {tiers.map((t) => (
-            <Card
-              key={t.name}
-              className={"overflow-hidden " + (t.featured ? "ring-brand-primary ring-2" : "")}
+      {/* Tiers */}
+      <section className="mx-auto max-w-7xl px-4 py-16 md:py-20">
+        <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">Membership Tiers</h2>
+
+        <div className="grid gap-8 md:grid-cols-3">
+          {tiers.map((tier, idx) => (
+            <div
+              key={tier.name}
+              className="overflow-hidden rounded-xl shadow-lg transition-shadow hover:shadow-xl"
             >
-              <div className={`h-20 ${t.color}`} />
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold">{t.name}</h3>
-                <p className="text-muted mt-1 text-sm">Unlocks at {t.spend}</p>
-                <ul className="mt-5 space-y-2 text-sm">
-                  {t.perks.map((p) => (
-                    <li key={p} className="flex items-start gap-2">
-                      <Star
-                        className="text-brand-primary mt-0.5 size-4 shrink-0"
-                        aria-hidden="true"
-                      />
-                      {p}
+              {/* Header */}
+              <div className={`bg-gradient-to-r ${tier.color} p-6 text-white`}>
+                <h3 className="mb-2 text-2xl font-bold">{tier.name}</h3>
+                {tier.pointsNeeded > 0 && (
+                  <p className="text-sm opacity-90">
+                    {tier.pointsNeeded.toLocaleString()} points to unlock
+                  </p>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="bg-white p-6">
+                <ul className="space-y-3">
+                  {tier.benefits.map((benefit, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="font-bold text-amber-600">✓</span>
+                      <span className="text-gray-700">{benefit}</span>
                     </li>
                   ))}
                 </ul>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
-      <section className="bg-surface">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold tracking-tight">Ways to earn & redeem</h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+      {/* How It Works */}
+      <section className="bg-gray-50 px-4 py-16 md:py-20">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">How Rewards Work</h2>
+
+          <div className="grid gap-8 md:grid-cols-3">
             {[
-              {
-                icon: TrendingUp,
-                t: "1.5–2× bonus on experiences",
-                d: "Double points on AI planner bookings.",
-              },
-              {
-                icon: Gift,
-                t: "Redeem for upgrades",
-                d: "From AED 250 of points = 1 room-category upgrade.",
-              },
-              {
-                icon: Users,
-                t: "Refer a friend",
-                d: "You both get 500 points on their first booking.",
-              },
-            ].map((p) => (
-              <div key={p.t} className="border-border bg-bg rounded-xl border p-6">
-                <p.icon className="text-brand-primary size-5" aria-hidden="true" />
-                <h3 className="mt-3 font-semibold">{p.t}</h3>
-                <p className="text-muted mt-1 text-sm">{p.d}</p>
+              { step: "Earn", desc: "Get 1 point for every AED spent on bookings" },
+              { step: "Save", desc: "Redeem points for discounts, free upgrades & perks" },
+              { step: "Enjoy", desc: "Unlock VIP benefits as you climb tiers" },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-amber-600 text-xl font-bold text-white">
+                  {item.step[0]}
+                </div>
+                <h3 className="mb-2 text-lg font-semibold text-gray-900">{item.step}</h3>
+                <p className="text-gray-600">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
-    </>
+
+      {/* Progress Example */}
+      <section className="mx-auto max-w-4xl px-4 py-16 md:py-20">
+        <h2 className="mb-8 text-center text-3xl font-bold text-gray-900">Your Progress</h2>
+
+        <div className="rounded-lg border border-gray-200 bg-white p-8">
+          <div className="mb-4">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="text-sm font-semibold text-gray-700">Silver → Gold</span>
+              <span className="text-sm font-semibold text-amber-600">2,450 / 5,000 points</span>
+            </div>
+            <div className="h-4 w-full overflow-hidden rounded-full bg-gray-200">
+              <div className="h-full bg-gradient-to-r from-amber-400 to-amber-600" />
+            </div>
+          </div>
+          <p className="text-sm text-gray-600">
+            You need 2,550 more points to reach Gold tier. One more trip should do it!
+          </p>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-gradient-to-r from-amber-600 to-amber-700 px-4 py-16 text-center text-white md:py-20">
+        <h2 className="mb-4 text-3xl font-bold md:text-4xl">Start Earning Today</h2>
+        <p className="mx-auto mb-8 max-w-2xl text-lg opacity-90">
+          Join 50,000+ travelers who are already saving with Aerovy Rewards.
+        </p>
+        <button className="rounded-lg bg-amber-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-amber-700">
+          <Link href="/auth/register">Sign Up Now</Link>
+        </button>
+      </section>
+    </main>
   );
 }

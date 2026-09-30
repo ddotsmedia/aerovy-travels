@@ -1,158 +1,136 @@
 import type { Metadata } from "next";
+
 import Link from "next/link";
-import { Globe2, Shield, Star, Users, Leaf, Award } from "lucide-react";
-import { Button } from "@aerovy/ui";
 
 export const metadata: Metadata = {
-  title: "About us",
-  description: "Aerovy Travels — a premium Abu Dhabi travel platform built by locals.",
+  title: "About Us · Aerovy Travels",
+  description:
+    "Learn about Aerovy Travels, our mission, values, and the team behind Abu Dhabi premium travel experiences.",
 };
 
 export default function AboutPage() {
+  const team = [
+    { name: "Sarah Al-Mazrouei", role: "Founder & CEO", img: "👩‍💼" },
+    { name: "Ahmed Khalifa", role: "Head of Operations", img: "👨‍💼" },
+    { name: "Layla Al-Ketbi", role: "Chief Experience Officer", img: "👩‍💼" },
+    { name: "Mohammed Al-Shamsi", role: "VP Technology", img: "👨‍💼" },
+  ];
+
+  const values = [
+    { title: "Excellence", desc: "We deliver premium experiences that exceed expectations" },
+    { title: "Integrity", desc: "Transparency and honesty in every customer interaction" },
+    { title: "Innovation", desc: "Leveraging AI and tech to simplify travel planning" },
+    { title: "Responsibility", desc: "Supporting local communities and sustainable tourism" },
+  ];
+
   return (
-    <>
-      <section className="bg-surface relative overflow-hidden">
-        <div className="bg-brand-primary/10 pointer-events-none absolute -top-40 -right-40 -z-10 size-[32rem] rounded-full blur-3xl" />
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <p className="text-brand-primary text-sm font-medium tracking-wide uppercase">
-            About Aerovy
-          </p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
-            Premium travel, locally owned.
-          </h1>
-          <p className="text-muted mt-6 max-w-2xl text-lg">
-            We started Aerovy because the best of Abu Dhabi was getting lost behind
-            over-commoditized booking marketplaces. Every supplier we list is visited, priced, and
-            graded in person.
-          </p>
-        </div>
+    <main className="min-h-screen bg-white">
+      {/* Hero */}
+      <section className="bg-gradient-to-r from-amber-600 to-amber-700 px-4 py-16 text-center text-white md:py-24">
+        <h1 className="mb-4 text-4xl font-bold md:text-5xl">About Aerovy</h1>
+        <p className="mx-auto max-w-2xl text-lg opacity-90">
+          Reimagining travel in Abu Dhabi through premium experiences, human touch, and cutting-edge
+          technology.
+        </p>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr]">
-          <div>
-            <p className="text-brand-primary text-sm font-medium tracking-wide uppercase">
-              Our story
-            </p>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight">From dhow to digital.</h2>
-          </div>
-          <div className="text-text/90 space-y-4 text-lg">
-            <p>
-              Aerovy Travels was founded in 2025 by a team of Abu Dhabi-born hospitality operators —
-              two former hotel concierges, a desert-safari operator with 14 years in Liwa, and a
-              software engineer who once built booking systems for Etihad.
-            </p>
-            <p>
-              The thesis is simple: the best travel experiences in the UAE are small, family-run,
-              and rarely well-represented online. Global marketplaces favour the largest suppliers,
-              not the best ones. We&rsquo;re here to change that — with a curated catalog, an AI
-              planner that surfaces real inventory, and an in-house concierge that picks up the
-              phone at 11pm on a Friday.
-            </p>
-            <p>
-              We&rsquo;re registered in Abu Dhabi, licensed by the Department of Culture & Tourism,
-              and a member of the UAE Travel Agents Association.
-            </p>
-          </div>
-        </div>
+      {/* Story */}
+      <section className="mx-auto max-w-4xl px-4 py-16 md:py-20">
+        <h2 className="mb-6 text-3xl font-bold text-gray-900">Our Story</h2>
+        <p className="mb-6 text-lg leading-relaxed text-gray-700">
+          Founded in 2021, Aerovy Travels began with a simple vision: to transform how people
+          experience Abu Dhabi. We noticed that while the city offers world-class attractions, the
+          booking experience was fragmented and complex.
+        </p>
+        <p className="mb-6 text-lg leading-relaxed text-gray-700">
+          Today, we serve over 50,000 travelers annually, offering everything from desert safaris to
+          corporate travel solutions. Our team of 45 passionate travel experts works tirelessly to
+          ensure every journey is unforgettable.
+        </p>
+        <p className="text-lg leading-relaxed text-gray-700">
+          By combining AI-powered recommendations with human expertise, we deliver personalized
+          travel experiences that feel both seamless and deeply authentic.
+        </p>
       </section>
 
-      <section className="bg-surface">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <header className="mx-auto max-w-2xl text-center">
-            <p className="text-brand-primary text-sm font-medium tracking-wide uppercase">
-              What we believe
-            </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight">Six commitments.</h2>
-          </header>
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {[
-              {
-                icon: Shield,
-                title: "Real vetting",
-                body: "Every supplier visited in person; no third-hand listings.",
-              },
-              {
-                icon: Star,
-                title: "Best-rate guarantee",
-                body: "Find it cheaper elsewhere and we match it, or refund the difference.",
-              },
-              {
-                icon: Users,
-                title: "Real concierge",
-                body: "A human on WhatsApp during your trip, not a chatbot.",
-              },
-              {
-                icon: Leaf,
-                title: "Sustainable suppliers",
-                body: "Preferred partners: electric fleet, mangrove-positive operators.",
-              },
-              {
-                icon: Globe2,
-                title: "Multi-lingual always",
-                body: "Service in EN / AR / HI / RU / ZH at every touchpoint.",
-              },
-              {
-                icon: Award,
-                title: "AI with integrity",
-                body: "The planner only books real inventory, not hallucinated attractions.",
-              },
-            ].map((v) => (
-              <div key={v.title} className="border-border bg-bg rounded-xl border p-6">
-                <v.icon className="text-brand-primary size-6" aria-hidden="true" />
-                <h3 className="mt-4 text-lg font-semibold">{v.title}</h3>
-                <p className="text-muted mt-2 text-sm">{v.body}</p>
+      {/* Mission & Values */}
+      <section className="bg-gray-50 px-4 py-16 md:py-20">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">Our Values</h2>
+
+          <div className="grid gap-8 md:grid-cols-2">
+            {values.map((value, i) => (
+              <div key={i} className="rounded-lg border border-gray-200 bg-white p-6">
+                <h3 className="mb-3 text-xl font-bold text-amber-600">{value.title}</h3>
+                <p className="text-gray-700">{value.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <header className="mx-auto max-w-2xl text-center">
-          <p className="text-brand-primary text-sm font-medium tracking-wide uppercase">Team</p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight">A small, senior team.</h2>
-        </header>
-        <div className="mt-12 grid gap-6 lg:grid-cols-4">
-          {[
-            { name: "Omar Al Mazrouei", role: "CEO, ex-Etihad Guest" },
-            { name: "Mariam Fahd", role: "Head of Experiences" },
-            { name: "Ravi Menon", role: "CTO, ex-Booking.com" },
-            { name: "Yulia Nazarova", role: "Head of Concierge" },
-          ].map((p) => (
-            <div
-              key={p.name}
-              className="border-border bg-surface rounded-xl border p-6 text-center"
-            >
-              <div className="from-brand-primary/30 to-brand-secondary/30 mx-auto size-20 rounded-full bg-gradient-to-br" />
-              <h3 className="mt-4 font-semibold">{p.name}</h3>
-              <p className="text-muted mt-1 text-sm">{p.role}</p>
+      {/* Team */}
+      <section className="mx-auto max-w-7xl px-4 py-16 md:py-20">
+        <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">Meet the Team</h2>
+
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+          {team.map((member, i) => (
+            <div key={i} className="text-center">
+              <div className="mb-4 text-6xl">{member.img}</div>
+              <h3 className="font-bold text-gray-900">{member.name}</h3>
+              <p className="text-sm text-gray-600">{member.role}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="border-border bg-brand-secondary text-bg border-t">
-        <div className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ready to explore?</h2>
-          <p className="text-bg/80 mt-4">
-            Start with the AI planner or browse our curated catalog.
-          </p>
-          <div className="mt-8 flex justify-center gap-3">
-            <Button asChild size="lg">
-              <Link href="/plan">Plan with AI</Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-bg/30 text-bg hover:bg-bg/10"
+      {/* Map Section */}
+      <section className="bg-gray-100 px-4 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl">
+          <h2 className="mb-8 text-center text-3xl font-bold text-gray-900">Visit Us</h2>
+
+          <div className="h-96 overflow-hidden rounded-lg bg-gray-300">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3605.9859434938846!2d54.3736!3d24.4865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae5b3cc0000001%3A0x0!2sCorniche%20Road!5e0!3m2!1sen!2sae!4v1234567890"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="mb-4 text-gray-600">Corniche Road, Al Markaziyah, Abu Dhabi, UAE</p>
+            <p className="mb-6 text-gray-600">Mon–Sun · 08:00–22:00 GST</p>
+            <Link
+              href="/contact"
+              className="inline-block rounded-lg bg-amber-600 px-8 py-3 font-semibold text-white transition-colors hover:bg-amber-700"
             >
-              <Link href="/experiences">Browse experiences</Link>
-            </Button>
+              Get in Touch
+            </Link>
           </div>
         </div>
       </section>
-    </>
+
+      {/* Awards */}
+      <section className="mx-auto max-w-4xl px-4 py-16 text-center md:py-20">
+        <h2 className="mb-8 text-2xl font-bold text-gray-900">Recognition & Awards</h2>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            "2024 Best Travel Platform UAE",
+            "2024 Customer Service Excellence",
+            "2023 Travel Tech Innovation Award",
+          ].map((award, i) => (
+            <div key={i} className="rounded-lg border border-amber-200 bg-amber-50 p-6">
+              <div className="mb-2 text-2xl">🏆</div>
+              <p className="font-semibold text-gray-800">{award}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }

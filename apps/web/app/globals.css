@@ -15,3 +15,51 @@
  * utilities whenever the element (or any ancestor) has the dark class.
  */
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* Admin panel dark theme styles */
+.admin-dark {
+  background-color: #0a0c10;
+  color: white;
+}
+.admin-sidebar {
+  background-color: #0d1117;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.admin-card {
+  background-color: #161b22;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.admin-input {
+  background-color: #0d1117;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+.admin-input:focus {
+  border-color: #cda020;
+  outline: none;
+}
+.admin-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+.admin-accent {
+  color: #cda020;
+}
+.admin-accent-bg {
+  background-color: rgba(205, 160, 32, 0.15);
+}
+.admin-button {
+  background-color: #cda020;
+  color: black;
+}
+.admin-button:hover {
+  background-color: rgba(205, 160, 32, 0.9);
+}
+.admin-text-muted {
+  color: rgba(255, 255, 255, 0.6);
+}
+.admin-text-secondary {
+  color: rgba(255, 255, 255, 0.7);
+}
+.admin-border {
+  border-color: rgba(255, 255, 255, 0.1);
+}

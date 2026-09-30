@@ -2,7 +2,7 @@
 export const site = {
   name: "Aerovy Travels",
   shortName: "Aerovy",
-  tagline: "Abu Dhabi, handcrafted.",
+  tagline: "Abu Dhabi's Premier Travel Platform",
   description:
     "Premium, AI-assisted travel platform for Abu Dhabi — tours, desert safaris, hotels, airport transfers, flights, visas and custom itineraries.",
   email: "hello@aerovy.travel",

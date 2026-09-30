@@ -1,125 +1,125 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Gift, Mail, Printer, CreditCard } from "lucide-react";
-import { Button, Input } from "@aerovy/ui";
-import { fmtAED } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Gift cards",
-  description: "Give the gift of travel. Redeemable on flights, hotels, and experiences.",
+  title: "Gift Cards · Aerovy Travels",
+  description:
+    "Give the gift of travel. Aerovy gift cards for flights, hotels, experiences, and packages.",
 };
 
-const amounts = [250, 500, 1000, 2500, 5000, 10000];
-
 export default function GiftCardsPage() {
+  const denominations = [250, 500, 1000, 5000];
+
   return (
-    <>
-      <section className="bg-bg relative overflow-hidden">
-        <div className="bg-brand-accent/20 pointer-events-none absolute -top-40 -right-40 -z-10 size-[32rem] rounded-full blur-3xl" />
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <nav className="text-muted mb-4 text-sm">
-            <Link href="/" className="hover:text-brand-primary">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-text">Gift cards</span>
-          </nav>
-          <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
-            <div>
-              <div className="text-brand-primary flex items-center gap-2">
-                <Gift className="size-4" aria-hidden="true" />
-                <span className="text-xs font-medium tracking-wide uppercase">
-                  Aerovy Gift Cards
-                </span>
-              </div>
-              <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
-                Give the gift of travel.
-              </h1>
-              <p className="text-muted mt-4 max-w-xl text-lg">
-                Never expires, redeemable on everything in our catalog — flights, hotels,
-                experiences, and transfers. Deliver by email, SMS, WhatsApp, or printed card.
-              </p>
+    <main className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
+      {/* Hero */}
+      <section className="px-4 py-16 text-center md:py-24">
+        <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">Gift Cards</h1>
+        <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-600">
+          The perfect gift for the traveler in your life. Use for flights, hotels, experiences, and
+          more.
+        </p>
+      </section>
 
-              <form className="border-border bg-surface mt-8 space-y-5 rounded-2xl border p-6">
-                <div>
-                  <p className="text-sm font-medium">Amount</p>
-                  <div className="mt-3 grid grid-cols-3 gap-2">
-                    {amounts.map((v, i) => (
-                      <label
-                        key={v}
-                        className="border-border bg-bg has-[:checked]:border-brand-primary has-[:checked]:bg-brand-primary/10 cursor-pointer rounded-lg border px-4 py-3 text-center text-sm font-medium"
-                      >
-                        <input
-                          type="radio"
-                          name="amount"
-                          value={v}
-                          defaultChecked={i === 2}
-                          className="sr-only"
-                        />
-                        {fmtAED(v)}
-                      </label>
-                    ))}
-                  </div>
-                  <Input placeholder="Or enter custom amount" className="mt-3" />
-                </div>
+      {/* Selector & Preview */}
+      <section className="mx-auto max-w-5xl px-4 py-16">
+        <div className="grid gap-12 md:grid-cols-2">
+          {/* Left: Selector */}
+          <div>
+            <h2 className="mb-6 text-2xl font-bold text-gray-900">Choose Amount</h2>
 
-                <div>
-                  <p className="text-sm font-medium">Delivery</p>
-                  <div className="mt-3 grid grid-cols-4 gap-2 text-sm">
-                    {[
-                      { icon: Mail, label: "Email", checked: true },
-                      { icon: Gift, label: "WhatsApp" },
-                      { icon: Printer, label: "PDF" },
-                      { icon: CreditCard, label: "Plastic card" },
-                    ].map((o) => (
-                      <label
-                        key={o.label}
-                        className="border-border bg-bg has-[:checked]:border-brand-primary has-[:checked]:bg-brand-primary/10 flex cursor-pointer flex-col items-center gap-1 rounded-lg border px-3 py-3"
-                      >
-                        <input
-                          type="radio"
-                          name="delivery"
-                          defaultChecked={o.checked}
-                          className="sr-only"
-                        />
-                        <o.icon className="size-4" aria-hidden="true" />
-                        <span className="text-xs">{o.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <Input placeholder="Recipient name" required />
-                <Input placeholder="Recipient email / WhatsApp" required />
-                <label className="block">
-                  <span className="text-sm font-medium">Personal message (optional)</span>
-                  <textarea
-                    rows={3}
-                    className="border-border bg-bg mt-1 w-full rounded-md border px-3 py-2 text-sm"
-                    placeholder="Happy birthday, Noor — see you in Liwa!"
-                  />
-                </label>
-
-                <Button size="lg" fullWidth type="submit">
-                  Continue to payment
-                </Button>
-              </form>
+            <div className="mb-8 space-y-3">
+              {denominations.map((amount) => (
+                <button
+                  key={amount}
+                  className="rounded-lg bg-purple-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-purple-700"
+                >
+                  AED {amount.toLocaleString()}
+                </button>
+              ))}
             </div>
 
-            <div className="relative">
-              <div className="bg-brand-primary/20 absolute inset-0 rotate-2 rounded-3xl" />
-              <div className="from-brand-secondary via-brand-secondary to-brand-primary/30 text-bg relative overflow-hidden rounded-3xl bg-gradient-to-br p-8 shadow-xl">
-                <p className="text-brand-primary text-xs font-medium tracking-widest uppercase">
-                  Aerovy Travels Gift Card
-                </p>
-                <p className="mt-10 text-3xl font-bold">{fmtAED(1000)}</p>
-                <p className="mt-1 font-mono text-xs opacity-70">AER-GIFT-XXXX-XXXX</p>
-                <div className="mt-12 flex items-end justify-between">
+            {/* Custom Amount */}
+            <div className="mb-8">
+              <label className="mb-2 block text-sm font-semibold text-gray-700">
+                Custom Amount
+              </label>
+              <div className="flex gap-2">
+                <span className="self-center text-lg font-semibold text-gray-900">AED</span>
+                <input
+                  type="number"
+                  placeholder="Enter amount"
+                  min="100"
+                  max="10000"
+                  className="flex-1 rounded-lg border-2 border-gray-300 px-4 py-2 focus:border-purple-600 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Recipient Fields */}
+            <div className="mb-8 space-y-4">
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-700">
+                  Recipient Name
+                </label>
+                <input
+                  placeholder="Name"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-purple-600 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-700">
+                  Recipient Email
+                </label>
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-purple-600 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-700">
+                  Personal Message
+                </label>
+                <textarea
+                  placeholder="Add a personal note..."
+                  rows={3}
+                  className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-purple-600 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <button className="rounded-lg bg-purple-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-purple-700">
+              Add to Cart
+            </button>
+          </div>
+
+          {/* Right: Preview */}
+          <div className="flex items-center justify-center">
+            <div className="w-full max-w-sm" style={{ perspective: 1000 }}>
+              <div className="flex h-64 flex-col justify-between rounded-2xl bg-gradient-to-br from-purple-600 to-purple-800 p-8 text-white shadow-2xl">
+                <div>
+                  <div className="text-sm font-semibold opacity-75">AEROVY TRAVELS</div>
+                  <div className="mt-2 text-3xl font-bold">Gift Card</div>
+                </div>
+
+                <div className="space-y-4">
                   <div>
-                    <p className="text-xs opacity-70">To</p>
-                    <p className="font-semibold">Someone wonderful</p>
+                    <div className="mb-1 text-xs opacity-75">CARD NUMBER</div>
+                    <div className="font-mono text-lg tracking-wider">4242 4242 4242 4242</div>
                   </div>
-                  <Gift className="text-brand-primary size-10" aria-hidden="true" />
+
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <div className="mb-1 text-xs opacity-75">AMOUNT</div>
+                      <div className="text-2xl font-bold">AED 1,000</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="mb-1 text-xs opacity-75">VALID THRU</div>
+                      <div className="text-sm">12/26</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -127,23 +127,28 @@ export default function GiftCardsPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-4 sm:grid-cols-3">
-          {[
-            { t: "Never expires", d: "Redeem any time, any year. No usage fees." },
-            {
-              t: "Works on everything",
-              d: "Flights, hotels, experiences, transfers — anything in the catalog.",
-            },
-            { t: "Refundable if unused", d: "Within 90 days, full refund to original card." },
-          ].map((p) => (
-            <div key={p.t} className="border-border bg-surface rounded-xl border p-6">
-              <h3 className="font-semibold">{p.t}</h3>
-              <p className="text-muted mt-2 text-sm">{p.d}</p>
-            </div>
-          ))}
+      {/* Benefits */}
+      <section className="bg-gray-50 px-4 py-16 md:py-20">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">Why Gift Cards?</h2>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              { title: "No Expiry", desc: "Use anytime, no expiration date" },
+              { title: "Flexible", desc: "Use on anything on our platform" },
+              { title: "Instant", desc: "Deliver digital cards instantly" },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="mb-3 text-3xl font-bold text-purple-600">
+                  {String.fromCharCode(97 + i)}
+                </div>
+                <h3 className="mb-2 font-semibold text-gray-900">{item.title}</h3>
+                <p className="text-sm text-gray-600">{item.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-    </>
+    </main>
   );
 }

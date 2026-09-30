@@ -34,13 +34,13 @@ export function SiteHeader() {
           <div className="hidden md:block">
             <CurrencySelector />
           </div>
-          <Link
-            href="/experiences"
-            className="text-text hover:bg-surface hidden h-10 w-10 items-center justify-center rounded-md md:flex"
-            aria-label="Search experiences"
+          <button
+            className="text-text hover:bg-surface group hidden h-10 w-10 items-center justify-center rounded-md md:flex"
+            aria-label="Command palette (Cmd+K)"
+            title="Press Cmd+K or Ctrl+K to open"
           >
-            <Search className="size-4" aria-hidden="true" />
-          </Link>
+            <Search className="aria-hidden size-4 group-hover:opacity-50" />
+          </button>
           <CartIconButton />
           <ThemeToggle />
           <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">

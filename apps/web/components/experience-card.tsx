@@ -1,9 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, MapPin, Star } from "lucide-react";
+import { Clock, MapPin, Star, Heart } from "lucide-react";
 import { Card, CardContent } from "@aerovy/ui";
 import { type Experience, fromPrice } from "@/lib/catalog";
 import { fmtAED, fmtDuration } from "@/lib/site";
+import { useWishlistStore } from "@/lib/store/wishlist";
+import { useState, useEffect } from "react";
 
 export function ExperienceCard({
   experience,
@@ -14,6 +18,19 @@ export function ExperienceCard({
 }) {
   const hero = experience.images[0];
   const price = fromPrice(experience);
+  const { isInWishlist, toggle } = useWishlistStore();
+  const [isWishlisted, setIsWishlisted] = useState(false);
+
+  useEffect(() => {
+    setIsWishlisted(isInWishlist(experience.slug));
+  }, [experience.slug, isInWishlist]);
+
+  const handleWishlistClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggle(experience.slug);
+    setIsWishlisted(!isWishlisted);
+  };
 
   return (
     <Link
@@ -37,6 +54,17 @@ export function ExperienceCard({
               Featured
             </span>
           )}
+          <button
+            onClick={handleWishlistClick}
+            className="absolute top-3 right-3 rounded-full bg-white/90 p-2 transition-all hover:scale-110 hover:bg-white"
+            aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+          >
+            <Heart
+              className={`size-5 transition-colors ${
+                isWishlisted ? "fill-red-500 text-red-500" : "text-gray-600 hover:text-red-500"
+              }`}
+            />
+          </button>
         </div>
         <CardContent className="p-5">
           <div className="text-muted flex items-center gap-3 text-xs">

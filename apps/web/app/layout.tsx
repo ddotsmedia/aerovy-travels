@@ -10,6 +10,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { CookieBanner } from "@/components/cookie-banner";
+import { CommandPalette } from "@/components/command-palette";
+import { BackToTop } from "@/components/back-to-top";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -69,6 +71,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </div>
             <WhatsAppFab />
             <CookieBanner />
+            <CommandPalette />
+            <BackToTop />
           </ThemeProvider>
         </TRPCProvider>
       </body>

@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Button } from "@aerovy/ui";
 import { Sparkles, Search } from "lucide-react";
 
@@ -11,7 +14,12 @@ export function Hero() {
       <div className="bg-brand-secondary/10 pointer-events-none absolute top-96 -left-40 -z-10 size-[28rem] rounded-full blur-3xl" />
 
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.25fr_1fr] lg:gap-16 lg:px-8 lg:py-28">
-        <div className="flex flex-col justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col justify-center"
+        >
           <span className="border-border bg-surface text-text inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium tracking-wide uppercase">
             <Sparkles className="text-brand-primary size-3" aria-hidden="true" />
             Abu Dhabi · handcrafted travel
@@ -52,9 +60,14 @@ export function Hero() {
               </Link>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        <div className="relative hidden lg:block">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative hidden lg:block"
+        >
           <div
             className="bg-brand-primary/20 absolute inset-0 rotate-3 rounded-3xl"
             aria-hidden="true"
@@ -83,7 +96,7 @@ export function Hero() {
               Try it now →
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,118 +1,106 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { Percent, Timer, Flame, Tag } from "lucide-react";
-import { Button, Card, CardContent } from "@aerovy/ui";
-import { experiences } from "@/lib/catalog";
-import { fmtAED } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Deals",
-  description: "Flash sales, seasonal discounts, last-minute offers on Abu Dhabi experiences.",
+  title: "Flash Deals & Offers · Aerovy Travels",
+  description:
+    "Limited-time travel deals and flash sales. Up to 30% off flights, hotels, experiences, and packages.",
 };
 
 export default function DealsPage() {
-  // Synthesize a deal list from the seed catalog.
-  const deals = experiences.slice(0, 8).map((e, i) => {
-    const price = Math.min(...e.variants.map((v) => v.basePriceAED));
-    const discountPct = [15, 20, 25, 30, 12, 18, 22, 28][i] ?? 20;
-    const was = Math.round(price / (1 - discountPct / 100));
-    return { e, price, was, discountPct };
-  });
-
-  const categories = [
-    { icon: Flame, label: "Flash sale · ends tonight", color: "text-danger" },
-    { icon: Timer, label: "Last-minute · tomorrow departures", color: "text-warning" },
-    { icon: Tag, label: "Resident price · Emirates ID required", color: "text-info" },
-    { icon: Percent, label: "Bundle any 2, save 12%", color: "text-success" },
+  const deals = [
+    { id: 1, title: "Dubai City Tour", original: 450, discount: 20, expiry: "72h" },
+    { id: 2, title: "Desert Safari & BBQ", original: 350, discount: 25, expiry: "48h" },
+    { id: 3, title: "Abu Dhabi Hotel Package", original: 890, discount: 15, expiry: "96h" },
+    { id: 4, title: "Yacht Cruise", original: 600, discount: 30, expiry: "24h" },
+    { id: 5, title: "Theme Parks Pass", original: 280, discount: 20, expiry: "72h" },
+    { id: 6, title: "Helicopter Tour", original: 1200, discount: 15, expiry: "48h" },
   ];
 
-  return (
-    <>
-      <section className="from-brand-primary/20 via-bg to-bg relative overflow-hidden bg-gradient-to-br">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <nav className="text-muted mb-4 text-sm">
-            <Link href="/" className="hover:text-brand-primary">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-text">Deals</span>
-          </nav>
-          <div className="text-brand-primary flex items-center gap-2">
-            <Percent className="size-4" aria-hidden="true" />
-            <span className="text-xs font-medium tracking-wide uppercase">Deals & offers</span>
-          </div>
-          <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
-            Save up to 30% this week.
-          </h1>
-          <p className="text-muted mt-4 max-w-2xl">
-            Flash sales, resident rates, and off-peak pricing. We don&rsquo;t do fake
-            &ldquo;was&rdquo; prices — every discount is a real cut against list.
-          </p>
+  const getDiscountedPrice = (original: number, discount: number) => {
+    return Math.round(original * (1 - discount / 100));
+  };
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {categories.map((c) => (
-              <div
-                key={c.label}
-                className="border-border bg-bg flex items-center gap-3 rounded-xl border p-4"
-              >
-                <c.icon className={`size-5 shrink-0 ${c.color}`} aria-hidden="true" />
-                <span className="text-sm font-medium">{c.label}</span>
-              </div>
-            ))}
+  const getTimeLeft = (expiry: string) => {
+    const hours = parseInt(expiry);
+    return `${hours} hours left`;
+  };
+
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-red-50 to-white">
+      {/* Hero */}
+      <section className="px-4 py-16 text-center md:py-24">
+        <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">Flash Deals</h1>
+        <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-600">
+          Limited-time offers up to 30% off. Deals refresh every 24 hours.
+        </p>
+
+        {/* Countdown Timer */}
+        <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-red-100 px-4 py-2 font-semibold text-red-700">
+          <span className="animate-pulse">●</span>
+          Next deals in: 04:32:18
+        </div>
+
+        {/* Newsletter Signup */}
+        <div className="mx-auto mb-8 max-w-md">
+          <div className="flex gap-2">
+            <input
+              type="email"
+              placeholder="Get deals via email"
+              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none"
+            />
+            <button className="rounded-lg bg-red-600 px-4 py-2 font-medium text-white transition-colors hover:bg-red-700">
+              Subscribe
+            </button>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {deals.map(({ e, price, was, discountPct }, i) => {
-            const hero = e.images[0];
+      {/* Deals Grid */}
+      <section className="mx-auto max-w-7xl px-4 py-16">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {deals.map((deal, idx) => {
+            const discounted = getDiscountedPrice(deal.original, deal.discount);
             return (
-              <Link
-                key={e.slug}
-                href={`/experiences/${e.slug}`}
-                className="group focus-visible:ring-ring block rounded-lg focus-visible:ring-2 focus-visible:outline-none"
+              <div
+                key={deal.id}
+                className="overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg"
               >
-                <Card className="h-full overflow-hidden transition-shadow group-hover:shadow-lg">
-                  <div className="bg-surface relative aspect-[4/3] overflow-hidden">
-                    {hero && (
-                      <Image
-                        src={hero.url}
-                        alt={hero.altEn}
-                        fill
-                        sizes="(min-width: 1024px) 33vw, 50vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                      />
-                    )}
-                    <span className="bg-danger text-bg absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-bold">
-                      −{discountPct}%
-                    </span>
-                    {i < 2 && (
-                      <span className="bg-brand-secondary/90 text-bg absolute top-3 right-3 rounded-full px-3 py-1 text-xs font-semibold">
-                        Ends in 08:{42 - i}:12
-                      </span>
-                    )}
+                {/* Discount Badge */}
+                <div className="relative flex h-48 items-center justify-center bg-gradient-to-br from-amber-200 to-orange-200">
+                  <div className="absolute top-4 right-4 rounded-full bg-red-600 px-3 py-1 text-sm font-bold text-white">
+                    -{deal.discount}%
                   </div>
-                  <CardContent className="p-5">
-                    <p className="text-brand-primary text-xs tracking-wide uppercase">
-                      {e.categorySlug.replace(/-/g, " ")}
-                    </p>
-                    <h3 className="mt-1 line-clamp-2 text-base font-semibold">{e.titleEn}</h3>
-                    <div className="mt-4 flex items-end justify-between">
-                      <div>
-                        <p className="text-muted text-xs line-through">{fmtAED(was)}</p>
-                        <p className="text-text text-xl font-bold">{fmtAED(price)}</p>
-                      </div>
-                      <Button size="sm">Grab</Button>
+                  <span className="text-4xl font-bold text-gray-700 opacity-50">{deal.id}</span>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="mb-2 text-lg font-bold text-gray-900">{deal.title}</h3>
+
+                  {/* Pricing */}
+                  <div className="mb-4">
+                    <div className="mb-2 flex items-baseline gap-2">
+                      <span className="text-2xl font-bold text-gray-900">AED {discounted}</span>
+                      <span className="text-sm text-gray-500 line-through">
+                        AED {deal.original}
+                      </span>
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
+                  </div>
+
+                  {/* Expiry */}
+                  <div className="mb-4 text-sm font-semibold text-orange-600">
+                    {getTimeLeft(deal.expiry)}
+                  </div>
+
+                  <button className="w-full rounded bg-amber-600 px-4 py-2 font-medium text-white transition-colors hover:bg-amber-700">
+                    Claim Deal
+                  </button>
+                </div>
+              </div>
             );
           })}
         </div>
       </section>
-    </>
+    </main>
   );
 }

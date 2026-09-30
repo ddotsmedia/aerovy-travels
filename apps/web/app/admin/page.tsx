@@ -1,216 +1,235 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+"use client";
+
 import {
-  DollarSign,
-  Users,
-  CalendarCheck,
-  TrendingUp,
-  Star,
-  Package as PackageIcon,
-  BarChart3,
-  Shield,
-  Warehouse,
-  ArrowUpRight,
-} from "lucide-react";
-import { Button, Card, CardContent } from "@aerovy/ui";
+  AreaChart,
+  Area,
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+import { Card, CardContent } from "@aerovy/ui";
+import { DollarSign, Users, CalendarCheck, MessageSquare } from "lucide-react";
+import { StatCard } from "@/components/admin/stat-card";
+import { BookingStatusBadge } from "@/components/admin/booking-status-badge";
 import { experiences } from "@/lib/catalog";
 import { fmtAED } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Admin · Dashboard", robots: { index: false } };
+const revenueData = [
+  { month: "Jan", revenue: 45000 },
+  { month: "Feb", revenue: 52000 },
+  { month: "Mar", revenue: 48000 },
+  { month: "Apr", revenue: 61000 },
+  { month: "May", revenue: 55000 },
+  { month: "Jun", revenue: 68000 },
+  { month: "Jul", revenue: 75000 },
+  { month: "Aug", revenue: 82000 },
+  { month: "Sep", revenue: 78000 },
+  { month: "Oct", revenue: 92000 },
+  { month: "Nov", revenue: 88000 },
+  { month: "Dec", revenue: 105000 },
+];
+
+const categoryData = [
+  { name: "Desert Safari", value: 35, color: "#CDA020" },
+  { name: "Cultural Tour", value: 25, color: "#D4AF37" },
+  { name: "Theme Parks", value: 20, color: "#AA8C2C" },
+  { name: "Water Sports", value: 15, color: "#9B7E1F" },
+  { name: "Other", value: 5, color: "#6B5818" },
+];
+
+const recentBookings = [
+  {
+    ref: "AER-5001",
+    name: "Fatima Al Mansouri",
+    experience: "Dune Bashing Adventure",
+    date: "2024-09-28",
+    amount: 850,
+    status: "Confirmed" as const,
+  },
+  {
+    ref: "AER-5000",
+    name: "Raj Patel",
+    experience: "Sheikh Zayed Grand Mosque Tour",
+    date: "2024-09-28",
+    amount: 240,
+    status: "Confirmed" as const,
+  },
+  {
+    ref: "AER-4999",
+    name: "Emma Watson",
+    experience: "Sunset Yacht Cruise",
+    date: "2024-09-27",
+    amount: 1200,
+    status: "Pending" as const,
+  },
+  {
+    ref: "AER-4998",
+    name: "Ahmed Al Mansoori",
+    experience: "Camel Trekking",
+    date: "2024-09-27",
+    amount: 450,
+    status: "Confirmed" as const,
+  },
+  {
+    ref: "AER-4997",
+    name: "Sarah Johnson",
+    experience: "Desert Camping",
+    date: "2024-09-26",
+    amount: 680,
+    status: "Cancelled" as const,
+  },
+];
 
 export default function AdminDashboard() {
-  const kpis = [
-    { label: "Revenue · this month", value: fmtAED(284_350), delta: "+18.4%", icon: DollarSign },
-    { label: "Bookings · this month", value: "412", delta: "+9.2%", icon: CalendarCheck },
-    { label: "Avg. order value", value: fmtAED(690), delta: "+4.1%", icon: TrendingUp },
-    { label: "Active customers", value: "3,186", delta: "+220 this wk", icon: Users },
-  ];
-
-  const adminNav = [
-    { href: "/admin", label: "Overview", icon: BarChart3, active: true },
-    { href: "/admin/experiences", label: "Experiences", icon: Warehouse },
-    { href: "/admin/bookings", label: "Bookings", icon: CalendarCheck },
-    { href: "/admin/customers", label: "Customers", icon: Users },
-    { href: "/admin/reviews", label: "Reviews", icon: Star },
-    { href: "/admin/promos", label: "Promos", icon: PackageIcon },
-    { href: "/admin/audit", label: "Audit log", icon: Shield },
-  ];
-
-  const topExperiences = experiences.slice(0, 5);
-
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-muted text-sm">Internal · admin</p>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        </div>
-        <Button variant="outline" size="sm">
-          Last 30 days
-        </Button>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+        <p className="mt-1 text-sm text-white/60">Welcome to the Aerovy admin panel</p>
       </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-[220px_1fr]">
-        <aside className="hidden lg:block">
-          <nav className="space-y-1">
-            {adminNav.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  l.active ? "bg-brand-primary/10 text-brand-primary" : "text-text hover:bg-surface"
-                }`}
-              >
-                <l.icon className="size-4" aria-hidden="true" />
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-        </aside>
+      {/* Stat cards */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <StatCard
+          icon={DollarSign}
+          label="Total Bookings"
+          value="1,247"
+          trend="+12.5%"
+          isPositive={true}
+        />
+        <StatCard
+          icon={DollarSign}
+          label="Revenue (AED)"
+          value={fmtAED(892340)}
+          trend="+8.2%"
+          isPositive={true}
+        />
+        <StatCard
+          icon={CalendarCheck}
+          label="Active Experiences"
+          value={experiences.length}
+          trend="All active"
+          isPositive={true}
+        />
+        <StatCard
+          icon={MessageSquare}
+          label="Pending Enquiries"
+          value="23"
+          trend="-3.1%"
+          isPositive={false}
+        />
+      </div>
 
-        <div className="space-y-6">
-          {/* KPIs */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {kpis.map((k) => (
-              <Card key={k.label}>
-                <CardContent className="p-5">
-                  <div className="text-muted flex items-center justify-between text-xs">
-                    <span>{k.label}</span>
-                    <k.icon className="text-brand-primary size-4" aria-hidden="true" />
-                  </div>
-                  <p className="mt-2 text-2xl font-bold">{k.value}</p>
-                  <p className="text-success mt-1 inline-flex items-center gap-1 text-xs font-medium">
-                    <ArrowUpRight className="size-3" aria-hidden="true" />
-                    {k.delta}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      {/* Charts */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Revenue chart */}
+        <Card className="admin-card">
+          <CardContent className="p-6">
+            <h2 className="mb-4 text-lg font-semibold text-white">Revenue · Last 12 Months</h2>
+            <ResponsiveContainer width="100%" height={300}>
+              <AreaChart data={revenueData}>
+                <defs>
+                  <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#CDA020" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#CDA020" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+                <XAxis dataKey="month" stroke="rgba(255,255,255,0.5)" />
+                <YAxis stroke="rgba(255,255,255,0.5)" />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#0D1117",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    borderRadius: "8px",
+                  }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="revenue"
+                  stroke="#CDA020"
+                  fillOpacity={1}
+                  fill="url(#colorRevenue)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
 
-          {/* Two-up panels */}
-          <div className="grid gap-6 lg:grid-cols-2">
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-lg font-semibold">Revenue · last 7 days</h2>
-                <p className="text-muted text-xs">Booking revenue (AED)</p>
-                <div className="mt-6 flex h-40 items-end gap-2">
-                  {[32, 48, 36, 72, 58, 81, 64].map((h, i) => (
-                    <div key={i} className="flex flex-1 flex-col items-center gap-1">
-                      <div
-                        className="from-brand-primary/50 to-brand-primary w-full rounded-sm bg-gradient-to-t"
-                        style={{ height: `${h}%` }}
-                      />
-                      <span className="text-muted text-xs">
-                        {["M", "T", "W", "T", "F", "S", "S"][i]}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-lg font-semibold">Top experiences · 30 days</h2>
-                <ol className="mt-4 space-y-3 text-sm">
-                  {topExperiences.map((e, i) => (
-                    <li
-                      key={e.slug}
-                      className="border-border flex items-center justify-between gap-3 border-b pb-3 last:border-b-0 last:pb-0"
-                    >
-                      <span className="flex items-center gap-3">
-                        <span className="bg-brand-primary/10 text-brand-primary flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-bold">
-                          {i + 1}
-                        </span>
-                        <span className="line-clamp-1 font-medium">{e.titleEn}</span>
-                      </span>
-                      <span className="text-muted text-right whitespace-nowrap">
-                        {40 + (e.titleEn.length % 50)} bookings
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Recent bookings */}
-          <Card>
-            <CardContent className="p-0">
-              <div className="border-border flex items-center justify-between border-b px-6 py-4">
-                <h2 className="font-semibold">Recent bookings</h2>
-                <Link
-                  href="/admin/bookings"
-                  className="text-brand-primary text-xs font-medium hover:underline"
+        {/* Category pie chart */}
+        <Card className="admin-card">
+          <CardContent className="p-6">
+            <h2 className="mb-4 text-lg font-semibold text-white">Bookings by Category</h2>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={categoryData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, value }) => `${name} ${value}%`}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
                 >
-                  View all →
-                </Link>
-              </div>
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="text-muted text-left text-xs tracking-wide uppercase">
-                    <th className="px-6 py-3">Ref</th>
-                    <th className="px-6 py-3">Customer</th>
-                    <th className="px-6 py-3">Experience</th>
-                    <th className="px-6 py-3">Status</th>
-                    <th className="px-6 py-3 text-right">Total</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-border divide-y">
-                  {[
-                    { ref: "AER-4821", name: "Priya M.", idx: 0, status: "Confirmed", total: 850 },
-                    {
-                      ref: "AER-4820",
-                      name: "Sebastian K.",
-                      idx: 5,
-                      status: "Confirmed",
-                      total: 2200,
-                    },
-                    { ref: "AER-4819", name: "Layla T.", idx: 1, status: "Pending", total: 240 },
-                    { ref: "AER-4818", name: "Ahmed R.", idx: 10, status: "Confirmed", total: 345 },
-                    {
-                      ref: "AER-4817",
-                      name: "Jessica H.",
-                      idx: 15,
-                      status: "Cancelled",
-                      total: 210,
-                    },
-                  ].map((b) => {
-                    const exp = experiences[b.idx]?.titleEn ?? "—";
-                    return (
-                      <tr key={b.ref}>
-                        <td className="px-6 py-4 font-mono text-xs">{b.ref}</td>
-                        <td className="px-6 py-4">{b.name}</td>
-                        <td className="text-muted px-6 py-4">{exp}</td>
-                        <td className="px-6 py-4">
-                          <span
-                            className={[
-                              "rounded-full px-2 py-0.5 text-xs font-medium",
-                              b.status === "Confirmed" && "bg-success/15 text-success",
-                              b.status === "Pending" && "bg-warning/15 text-warning",
-                              b.status === "Cancelled" && "bg-danger/15 text-danger",
-                            ]
-                              .filter(Boolean)
-                              .join(" ")}
-                          >
-                            {b.status}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-right font-semibold">{fmtAED(b.total)}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </CardContent>
-          </Card>
-        </div>
+                  {categoryData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#0D1117",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
       </div>
 
-      <p className="text-muted mt-10 text-center text-xs">
-        Mock dashboard — real data + RBAC land in P1-T13. All figures fabricated.
-      </p>
+      {/* Recent bookings table */}
+      <Card className="admin-card">
+        <CardContent className="p-0">
+          <div className="border-b border-white/10 px-6 py-4">
+            <h2 className="text-lg font-semibold text-white">Recent Bookings</h2>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-white/10 text-left text-xs font-medium tracking-wide text-white/60 uppercase">
+                  <th className="px-6 py-3">Ref</th>
+                  <th className="px-6 py-3">Customer</th>
+                  <th className="px-6 py-3">Experience</th>
+                  <th className="px-6 py-3">Date</th>
+                  <th className="px-6 py-3">Amount</th>
+                  <th className="px-6 py-3">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/10">
+                {recentBookings.map((booking) => (
+                  <tr key={booking.ref} className="hover:bg-white/5">
+                    <td className="px-6 py-4 font-mono text-xs text-white/70">{booking.ref}</td>
+                    <td className="px-6 py-4 text-white">{booking.name}</td>
+                    <td className="px-6 py-4 text-white/70">{booking.experience}</td>
+                    <td className="px-6 py-4 text-white/70">{booking.date}</td>
+                    <td className="px-6 py-4 font-semibold text-white">{fmtAED(booking.amount)}</td>
+                    <td className="px-6 py-4">
+                      <BookingStatusBadge status={booking.status} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
