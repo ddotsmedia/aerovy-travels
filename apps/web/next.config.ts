@@ -6,6 +6,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  output: "standalone",
   transpilePackages: ["@aerovy/ui", "@aerovy/api", "@aerovy/db"],
   outputFileTracingRoot: resolve(__dirname, "../.."),
   images: {

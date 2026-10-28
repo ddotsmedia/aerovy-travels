@@ -1,0 +1,13 @@
+# Dependencies are installed inside the image; host copies contain
+# Windows symlinks and platform binaries that must not leak in.
+node_modules
+**/node_modules
+.next
+**/.next
+.git
+*.log
+**/*.log
+.env*
+**/.env*
+.turbo
+**/.turbo

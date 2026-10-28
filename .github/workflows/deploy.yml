@@ -3,38 +3,86 @@ name: Deploy Aerovy Web
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-aerovy-web
+  cancel-in-progress: false
+
+env:
+  IMAGE: ghcr.io/ddotsmedia/aerovy-travels/web
 
 jobs:
-  build-and-deploy:
+  build:
+    name: Build & push image
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
         with:
-          version: 9
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN || secrets.GITHUB_TOKEN }}
 
-      - uses: actions/setup-node@v4
+      - name: Build and push
+        uses: docker/build-push-action@v6
         with:
-          node-version: 20
-          cache: pnpm
+          context: .
+          file: apps/web/Dockerfile
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ github.sha }}
+            ${{ env.IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      - run: pnpm install --frozen-lockfile
-
-      - run: pnpm build --filter @aerovy/web
-        env:
-          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
-
-      - name: Deploy to VPS
+  deploy:
+    name: Deploy to VPS
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Pull, restart and health-check on VPS
         uses: appleboy/ssh-action@v1
+        env:
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          envs: GHCR_TOKEN
           script: |
-            cd /opt/aerovy-travels
-            git pull origin main
-            pnpm install --frozen-lockfile
-            pnpm build --filter @aerovy/web
-            pm2 restart aerovy-web --update-env
-            pm2 save
+            set -e
+            mkdir -p /opt/aerovy
+            cd /opt/aerovy
+
+            if [ -n "$GHCR_TOKEN" ]; then
+              echo "$GHCR_TOKEN" | docker login ghcr.io -u ddotsmedia --password-stdin
+            fi
+
+            docker pull ghcr.io/ddotsmedia/aerovy-travels/web:latest
+
+            docker stop aerovy-web || true
+            docker rm aerovy-web || true
+            docker run -d --name aerovy-web --restart unless-stopped \
+              -p 127.0.0.1:3130:3130 \
+              ghcr.io/ddotsmedia/aerovy-travels/web:latest
+
+            for i in $(seq 1 30); do
+              if curl -fsS -o /dev/null http://127.0.0.1:3130; then
+                echo "Health check passed"
+                exit 0
+              fi
+              sleep 2
+            done
+            echo "Health check failed"
+            docker logs --tail 100 aerovy-web || true
+            exit 1
