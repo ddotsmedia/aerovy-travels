@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent, Button } from "@aerovy/ui";
 import { Save } from "lucide-react";
+import { MessageTemplates } from "@/components/admin/message-templates";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("general");
@@ -40,6 +41,7 @@ export default function SettingsPage() {
           { id: "general", label: "General" },
           { id: "notifications", label: "Notifications" },
           { id: "appearance", label: "Appearance" },
+          { id: "templates", label: "Message Templates" },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -196,6 +198,9 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
       )}
+
+      {/* Message templates */}
+      {activeTab === "templates" && <MessageTemplates />}
     </div>
   );
 }

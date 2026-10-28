@@ -7,6 +7,7 @@ import { CalendarCheck, CheckCircle2, Download, Mail, MapPin, Users } from "luci
 import { Button, Card, CardContent } from "@aerovy/ui";
 import { getOrder, type StoredOrder } from "@/lib/order-store";
 import { lineSubtotal } from "@/lib/cart-store";
+import { pointsForAED } from "@/lib/store/loyalty";
 import { fmtAED } from "@/lib/site";
 
 export function ConfirmationContent({ id }: { id: string }) {
@@ -60,6 +61,10 @@ export function ConfirmationContent({ id }: { id: string }) {
               Booking <strong className="text-text">{order.id}</strong> confirmed for{" "}
               {order.traveler.firstName} {order.traveler.lastName}. A voucher is on its way to{" "}
               {order.traveler.email}.
+            </p>
+            <p className="bg-brand-primary/10 text-text mt-4 rounded-full px-4 py-2 text-sm font-medium">
+              You earned {order.pointsEarned ?? pointsForAED(order.totalAED)} Aerovy Reward Points
+              for this booking!
             </p>
           </div>
 
@@ -129,6 +134,12 @@ export function ConfirmationContent({ id }: { id: string }) {
               <dt className="text-muted">Subtotal</dt>
               <dd>{fmtAED(order.subtotalAED)}</dd>
             </div>
+            {(order.discountAED ?? 0) > 0 && (
+              <div className="text-brand-primary flex justify-between">
+                <dt>Promo {order.promoCode ? `(${order.promoCode})` : ""}</dt>
+                <dd>−{fmtAED(order.discountAED ?? 0)}</dd>
+              </div>
+            )}
             <div className="flex justify-between">
               <dt className="text-muted">Service fee</dt>
               <dd>{fmtAED(order.feesAED)}</dd>

@@ -5,8 +5,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@aerovy/ui";
 import { Sparkles, Search } from "lucide-react";
+import { useT } from "@/lib/i18n";
 
 export function Hero() {
+  const t = useT();
   return (
     <section className="bg-bg relative overflow-hidden">
       <div className="from-brand-accent/25 via-brand-accent/5 pointer-events-none absolute inset-x-0 top-0 -z-10 h-[44rem] bg-gradient-to-b to-transparent" />
@@ -22,34 +24,30 @@ export function Hero() {
         >
           <span className="border-border bg-surface text-text inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium tracking-wide uppercase">
             <Sparkles className="text-brand-primary size-3" aria-hidden="true" />
-            Abu Dhabi · handcrafted travel
+            {t("hero.badge")}
           </span>
 
           <h1 className="text-text mt-6 text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-            Discover Abu Dhabi, <span className="text-brand-primary">your way.</span>
+            {t("hero.title")} <span className="text-brand-primary">{t("hero.titleAccent")}</span>
           </h1>
-          <p className="text-muted mt-6 max-w-xl text-lg">
-            200+ vetted experiences — desert safaris, cultural tours, theme-park adventures, premium
-            hotels and airport transfers — curated by locals, booked in minutes, and available in
-            one tap.
-          </p>
+          <p className="text-muted mt-6 max-w-xl text-lg">{t("hero.subtitle")}</p>
 
           <form action="/experiences" className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row">
             <label className="border-border bg-bg flex flex-1 items-center gap-2 rounded-md border px-4">
               <Search className="text-muted size-4" aria-hidden="true" />
               <input
                 name="q"
-                placeholder="Try 'desert safari' or 'mangroves'"
+                placeholder={t("hero.searchPlaceholder")}
                 className="text-text placeholder:text-muted h-12 w-full bg-transparent text-sm focus:outline-none"
               />
             </label>
             <Button size="lg" type="submit">
-              Search
+              {t("hero.search")}
             </Button>
           </form>
 
           <div className="text-muted mt-6 flex flex-wrap items-center gap-3 text-sm">
-            <span>Popular:</span>
+            <span>{t("hero.popular")}</span>
             {["Sheikh Zayed Mosque", "Ferrari World", "Liwa safari", "Louvre"].map((k) => (
               <Link
                 key={k}

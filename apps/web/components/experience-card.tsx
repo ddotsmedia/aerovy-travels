@@ -5,8 +5,9 @@ import Link from "next/link";
 import { Clock, MapPin, Star, Heart } from "lucide-react";
 import { Card, CardContent } from "@aerovy/ui";
 import { type Experience, fromPrice } from "@/lib/catalog";
-import { fmtAED, fmtDuration } from "@/lib/site";
+import { fmtDuration } from "@/lib/site";
 import { useWishlistStore } from "@/lib/store/wishlist";
+import { Price } from "@/components/price";
 import { useState, useEffect } from "react";
 
 export function ExperienceCard({
@@ -90,7 +91,7 @@ export function ExperienceCard({
             </div>
             <div className="text-right">
               <p className="text-muted text-xs">From</p>
-              <p className="text-text text-base font-bold">{fmtAED(price)}</p>
+              <Price aed={price} className="text-text text-base font-bold" />
             </div>
           </div>
         </CardContent>

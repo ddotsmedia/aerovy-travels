@@ -1,6 +1,8 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { site, footerNav } from "@/lib/site";
 import { BrandLogo } from "./brand-logo";
+import { T } from "./t";
 import { Mail, Phone, MessageCircle, Instagram, Facebook, Twitter } from "lucide-react";
 
 export function SiteFooter() {
@@ -62,11 +64,11 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <FooterColumn title="Book" links={footerNav.book} />
-          <FooterColumn title="Discover" links={footerNav.discover} />
-          <FooterColumn title="Services" links={footerNav.services} />
-          <FooterColumn title="Support" links={footerNav.support} />
-          <FooterColumn title="Company" links={footerNav.company} />
+          <FooterColumn title={<T k="footer.book" />} links={footerNav.book} />
+          <FooterColumn title={<T k="footer.discover" />} links={footerNav.discover} />
+          <FooterColumn title={<T k="footer.services" />} links={footerNav.services} />
+          <FooterColumn title={<T k="footer.support" />} links={footerNav.support} />
+          <FooterColumn title={<T k="footer.company" />} links={footerNav.company} />
         </div>
 
         <div className="border-border text-muted mt-10 flex flex-col gap-4 border-t pt-6 text-sm">
@@ -99,7 +101,7 @@ function FooterColumn({
   title,
   links,
 }: {
-  title: string;
+  title: ReactNode;
   links: readonly { href: string; label: string }[];
 }) {
   return (

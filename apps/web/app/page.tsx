@@ -1,4 +1,5 @@
 import { Hero } from "@/components/home/hero";
+import { WeatherWidget } from "@/components/home/weather-widget";
 import { Stats } from "@/components/home/stats";
 import { CategoriesSection } from "@/components/home/categories-section";
 import { FeaturedSection } from "@/components/home/featured-section";
@@ -12,6 +13,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <div className="px-4 pt-8 sm:px-6 lg:px-8">
+        <WeatherWidget />
+      </div>
       <Stats />
       <CategoriesSection />
       <FeaturedSection />

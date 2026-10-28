@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "picsum.photos" },
       { protocol: "https", hostname: "cdn.aerovy.travel" },
+      { protocol: "https", hostname: "ui-avatars.com" },
     ],
   },
 };

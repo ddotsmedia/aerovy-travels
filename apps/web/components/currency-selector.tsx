@@ -1,31 +1,28 @@
 "use client";
 import { useEffect, useState } from "react";
 import { DollarSign } from "lucide-react";
+import { useCurrencyStore, type Currency } from "@/lib/store/currency";
 
-const currencies = [
+const currencies: { code: Currency; label: string }[] = [
   { code: "AED", label: "AED · UAE Dirham" },
   { code: "USD", label: "USD · US Dollar" },
   { code: "EUR", label: "EUR · Euro" },
   { code: "GBP", label: "GBP · British Pound" },
   { code: "INR", label: "INR · Indian Rupee" },
-  { code: "CNY", label: "CNY · Chinese Yuan" },
-  { code: "RUB", label: "RUB · Russian Ruble" },
 ];
 
-const KEY = "aerovy:currency";
-
 export function CurrencySelector() {
-  const [code, setCode] = useState("AED");
+  const selected = useCurrencyStore((s) => s.selected);
+  const setCurrency = useCurrencyStore((s) => s.setCurrency);
+  const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const stored = window.localStorage.getItem(KEY);
-    if (stored) setCode(stored);
-  }, []);
+  // Persisted choice is applied after mount to keep SSR markup stable.
+  useEffect(() => setMounted(true), []);
+  const code = mounted ? selected : "AED";
 
-  function pick(next: string) {
-    setCode(next);
-    window.localStorage.setItem(KEY, next);
+  function pick(next: Currency) {
+    setCurrency(next);
     setOpen(false);
   }
 

@@ -9,6 +9,8 @@ import { Button, Card, CardContent, Input } from "@aerovy/ui";
 import { useCartStore, lineSubtotal, cartTotals } from "@/lib/cart-store";
 import { saveOrder, newOrderId } from "@/lib/order-store";
 import { fmtAED } from "@/lib/site";
+import { findUsablePromo, usePromoStore, type PromoCode } from "@/lib/store/promos";
+import { useLoyaltyStore, pointsForAED } from "@/lib/store/loyalty";
 
 export function CheckoutContent() {
   const router = useRouter();
@@ -18,8 +20,22 @@ export function CheckoutContent() {
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [promoInput, setPromoInput] = useState("");
+  const [appliedPromo, setAppliedPromo] = useState<PromoCode | null>(null);
+  const [promoError, setPromoError] = useState<string | null>(null);
 
-  const { subtotal, fees, total } = cartTotals(items);
+  const { subtotal, discount, fees, total } = cartTotals(items, appliedPromo?.discountPct ?? 0);
+
+  const applyPromo = () => {
+    const promo = findUsablePromo(promoInput);
+    if (!promo) {
+      setAppliedPromo(null);
+      setPromoError("That code isn't valid or has expired.");
+      return;
+    }
+    setPromoError(null);
+    setAppliedPromo(promo);
+  };
 
   if (!hydrated) {
     return (
@@ -67,14 +83,28 @@ export function CheckoutContent() {
       }
     }
 
+    if (appliedPromo && !findUsablePromo(appliedPromo.code)) {
+      setAppliedPromo(null);
+      setError("Your promo code is no longer valid. Please review your total.");
+      setSubmitting(false);
+      return;
+    }
+
     const id = newOrderId();
+    const pointsEarned = pointsForAED(total);
+    if (appliedPromo) usePromoStore.getState().recordUse(appliedPromo.code);
+    useLoyaltyStore.getState().addPoints(pointsEarned);
+
     saveOrder({
       id,
       createdAtISO: new Date().toISOString(),
       items,
       subtotalAED: subtotal,
+      discountAED: discount,
+      promoCode: appliedPromo?.code,
       feesAED: fees,
       totalAED: total,
+      pointsEarned,
       traveler: {
         firstName: String(data.get("firstName")).trim(),
         lastName: String(data.get("lastName")).trim(),
@@ -221,11 +251,44 @@ export function CheckoutContent() {
                   );
                 })}
               </ul>
+              <div className="border-border mt-5 border-t pt-4">
+                <label htmlFor="promo" className="text-sm font-medium">
+                  Promo code
+                </label>
+                <div className="mt-1 flex gap-2">
+                  <Input
+                    id="promo"
+                    value={promoInput}
+                    onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+                    placeholder="8-character code"
+                    className="font-mono"
+                  />
+                  <Button type="button" variant="outline" onClick={applyPromo}>
+                    Apply
+                  </Button>
+                </div>
+                {promoError && (
+                  <p role="alert" className="text-danger mt-2 text-xs">
+                    {promoError}
+                  </p>
+                )}
+                {appliedPromo && (
+                  <p className="text-brand-primary mt-2 text-xs">
+                    {appliedPromo.code} applied · {appliedPromo.discountPct}% off
+                  </p>
+                )}
+              </div>
               <dl className="border-border mt-5 space-y-2 border-t pt-4 text-sm">
                 <div className="flex justify-between">
                   <dt className="text-muted">Subtotal</dt>
                   <dd>{fmtAED(subtotal)}</dd>
                 </div>
+                {discount > 0 && (
+                  <div className="text-brand-primary flex justify-between">
+                    <dt>Promo discount</dt>
+                    <dd>−{fmtAED(discount)}</dd>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <dt className="text-muted">Service fee (5%)</dt>
                   <dd>{fmtAED(fees)}</dd>

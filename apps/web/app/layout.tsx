@@ -12,6 +12,8 @@ import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { CookieBanner } from "@/components/cookie-banner";
 import { CommandPalette } from "@/components/command-palette";
 import { BackToTop } from "@/components/back-to-top";
+import { CurrencyRatesLoader } from "@/components/currency-rates-loader";
+import { LangSync } from "@/components/lang-sync";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -73,6 +75,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <CookieBanner />
             <CommandPalette />
             <BackToTop />
+            <CurrencyRatesLoader />
+            <LangSync />
           </ThemeProvider>
         </TRPCProvider>
       </body>

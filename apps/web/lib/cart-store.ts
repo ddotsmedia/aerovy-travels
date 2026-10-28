@@ -37,10 +37,12 @@ export const cartCount = (items: CartItem[]) =>
 
 export const SERVICE_FEE_PCT = 0.05;
 
-export const cartTotals = (items: CartItem[]) => {
+export const cartTotals = (items: CartItem[], discountPct = 0) => {
   const subtotal = cartSubtotal(items);
-  const fees = Math.round(subtotal * SERVICE_FEE_PCT);
-  return { subtotal, fees, total: subtotal + fees };
+  const discount = Math.round((subtotal * discountPct) / 100);
+  const net = subtotal - discount;
+  const fees = Math.round(net * SERVICE_FEE_PCT);
+  return { subtotal, discount, fees, total: net + fees };
 };
 
 const newId = () =>

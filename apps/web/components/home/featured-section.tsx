@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Button } from "@aerovy/ui";
 import { getFeaturedExperiences } from "@/lib/catalog";
 import { ExperienceCard } from "../experience-card";
+import { DealCountdown } from "@/components/deals/deal-countdown";
 
 export function FeaturedSection() {
   const items = getFeaturedExperiences(6);
@@ -32,6 +33,13 @@ export function FeaturedSection() {
             </Link>
           </Button>
         </header>
+
+        <p className="border-brand-primary/40 bg-brand-primary/10 mt-8 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold">
+          <span className="animate-pulse" aria-hidden="true">
+            ●
+          </span>
+          <DealCountdown hours={24} label="Flash offers end in:" />
+        </p>
 
         <motion.div
           className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"

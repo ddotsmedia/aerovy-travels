@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { MessageCircle, X } from "lucide-react";
-import { site } from "@/lib/site";
+import { waLink } from "@/lib/whatsapp";
 
 export function WhatsAppFab() {
   const [open, setOpen] = useState(false);
@@ -12,9 +12,7 @@ export function WhatsAppFab() {
     return () => clearTimeout(t);
   }, []);
 
-  const waHref = `https://wa.me/${site.whatsapp.replace(/[^\d]/g, "")}?text=${encodeURIComponent(
-    "Hi Aerovy, I'd like to ask about...",
-  )}`;
+  const waHref = waLink("Hi Aerovy, I need help with travel planning");
 
   return (
     <div className="fixed right-5 bottom-5 z-50 flex flex-col items-end gap-2 sm:right-6 sm:bottom-6">

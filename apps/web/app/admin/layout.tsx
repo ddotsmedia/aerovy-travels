@@ -17,8 +17,13 @@ import {
   X,
   Bell,
   LogOut,
+  FileText,
+  Tag,
+  UserCog,
 } from "lucide-react";
 import { Button } from "@aerovy/ui";
+import { AdminToaster } from "@/components/admin/toaster";
+import { useNotificationStore, unreadCount } from "@/lib/store/notifications";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -28,7 +33,11 @@ const navItems = [
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/reviews", label: "Reviews", icon: Star },
   { href: "/admin/enquiries", label: "Enquiries", icon: MessageSquare },
+  { href: "/admin/notifications", label: "Notifications", icon: Bell },
   { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/admin/reports", label: "Reports", icon: FileText },
+  { href: "/admin/promotions", label: "Promotions", icon: Tag },
+  { href: "/admin/staff", label: "Staff", icon: UserCog },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
@@ -52,6 +61,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const notifications = useNotificationStore((s) => s.items);
+  const unread = unreadCount(notifications);
 
   useEffect(() => {
     const token = typeof window !== "undefined" ? localStorage.getItem("aerovy_admin_token") : null;
@@ -132,9 +143,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </h2>
               </div>
               <div className="flex items-center gap-4">
-                <Button variant="ghost" size="icon">
-                  <Bell className="size-4" />
-                </Button>
+                <Link
+                  href="/admin/notifications"
+                  aria-label={`Notifications, ${unread} unread`}
+                  className="relative inline-flex size-9 items-center justify-center rounded-md hover:bg-white/5"
+                >
+                  <Bell className="size-4" aria-hidden="true" />
+                  {unread > 0 && (
+                    <span className="admin-button absolute -top-1 -right-1 min-w-[18px] rounded-full px-1 text-center text-[10px] leading-[18px] font-bold">
+                      {unread}
+                    </span>
+                  )}
+                </Link>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -154,6 +174,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <main className="flex-1 overflow-auto">
             <div className="p-6">{children}</div>
           </main>
+          <AdminToaster />
         </div>
 
         {/* Overlay */}

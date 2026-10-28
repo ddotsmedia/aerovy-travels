@@ -7,8 +7,11 @@ export type StoredOrder = {
   createdAtISO: string;
   items: CartItem[];
   subtotalAED: number;
+  discountAED?: number;
+  promoCode?: string;
   feesAED: number;
   totalAED: number;
+  pointsEarned?: number;
   traveler: {
     firstName: string;
     lastName: string;

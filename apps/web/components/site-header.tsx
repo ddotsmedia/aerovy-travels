@@ -3,7 +3,8 @@ import { Button } from "@aerovy/ui";
 import { BrandLogo } from "./brand-logo";
 import { ThemeToggle } from "./theme-toggle";
 import { CurrencySelector } from "./currency-selector";
-import { primaryNav } from "@/lib/site";
+import { LangToggle } from "./lang-toggle";
+import { SiteNav } from "./site-nav";
 import { MobileNav } from "./mobile-nav";
 import { CartIconButton } from "./cart-icon-button";
 import { Search, User } from "lucide-react";
@@ -17,23 +18,14 @@ export function SiteHeader() {
             <BrandLogo priority />
           </Link>
 
-          <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
-            {primaryNav.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="text-text/80 hover:text-brand-primary text-sm font-medium transition-colors"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
+          <SiteNav />
         </div>
 
         <div className="flex items-center gap-2">
           <div className="hidden md:block">
             <CurrencySelector />
           </div>
+          <LangToggle />
           <button
             className="text-text hover:bg-surface group hidden h-10 w-10 items-center justify-center rounded-md md:flex"
             aria-label="Command palette (Cmd+K)"

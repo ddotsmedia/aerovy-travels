@@ -5,11 +5,12 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 export type Currency = "AED" | "USD" | "EUR" | "GBP" | "INR";
 
+// Units of AED per 1 unit of each currency (fallback when live rates are unavailable).
 export type CurrencyRates = {
   [key in Currency]: number;
 };
 
-const EXCHANGE_RATES: CurrencyRates = {
+export const FALLBACK_RATES: CurrencyRates = {
   AED: 1,
   USD: 3.67,
   EUR: 4.04,
@@ -20,23 +21,28 @@ const EXCHANGE_RATES: CurrencyRates = {
 export type CurrencyState = {
   selected: Currency;
   rates: CurrencyRates;
+  ratesUpdatedAt: string | null;
   setCurrency: (currency: Currency) => void;
+  setRates: (rates: CurrencyRates) => void;
   convert: (amount: number, fromCurrency: Currency, toCurrency: Currency) => number;
   getRate: (currency: Currency) => number;
 };
 
 export const useCurrencyStore = create<CurrencyState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       selected: "AED",
-      rates: EXCHANGE_RATES,
+      rates: FALLBACK_RATES,
+      ratesUpdatedAt: null,
       setCurrency: (currency) => set({ selected: currency }),
+      setRates: (rates) => set({ rates, ratesUpdatedAt: new Date().toISOString() }),
+      // Amount in `from` → amount in `to`, via AED as the pivot.
       convert: (amount, from, to) => {
-        const fromRate = EXCHANGE_RATES[from];
-        const toRate = EXCHANGE_RATES[to];
-        return Math.round((amount / fromRate) * toRate * 100) / 100;
+        const { rates } = get();
+        const aed = amount * rates[from];
+        return Math.round((aed / rates[to]) * 100) / 100;
       },
-      getRate: (currency) => EXCHANGE_RATES[currency],
+      getRate: (currency) => get().rates[currency],
     }),
     {
       name: "aerovy.currency",
@@ -44,6 +50,14 @@ export const useCurrencyStore = create<CurrencyState>()(
     },
   ),
 );
+
+export const formatCurrency = (amount: number, currency: Currency) =>
+  new Intl.NumberFormat("en", {
+    style: "currency",
+    currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
 
 export const useCurrency = () => {
   const store = useCurrencyStore();
@@ -54,12 +68,7 @@ export const useCurrency = () => {
     format: (amount: number, from: Currency = "AED") => {
       const converted =
         from === store.selected ? amount : store.convert(amount, from, store.selected);
-      return new Intl.NumberFormat("en", {
-        style: "currency",
-        currency: store.selected,
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      }).format(converted);
+      return formatCurrency(converted, store.selected);
     },
   };
 };

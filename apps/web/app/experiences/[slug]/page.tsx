@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { Clock, MapPin, Star, Check, Users, Share2, Heart } from "lucide-react";
 import { Button, Card, CardContent } from "@aerovy/ui";
 import { BookingCard } from "@/components/booking-card";
+import { VirtualTourModal } from "@/components/experience/virtual-tour-modal";
+import { ReviewsSection } from "@/components/experience/reviews-section";
 import { ExperienceCard } from "@/components/experience-card";
 import { getExperienceBySlug, relatedExperiences, getMaxPax } from "@/lib/catalog";
 import { fmtAED, fmtDuration } from "@/lib/site";
@@ -145,6 +147,7 @@ export default async function ExperienceDetailPage({
                 <Share2 className="size-4" aria-hidden="true" />
                 Share
               </Button>
+              <VirtualTourModal title={e.titleEn} />
             </div>
 
             {/* Overview */}
@@ -245,6 +248,8 @@ export default async function ExperienceDetailPage({
                 </p>
               </div>
             </div>
+
+            <ReviewsSection title={e.titleEn} />
           </div>
 
           {/* Sticky sidebar */}

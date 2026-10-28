@@ -2,11 +2,22 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Calendar, Users, Clock, Check, Minus, Plus, ShoppingBag } from "lucide-react";
+import {
+  Calendar,
+  Users,
+  Clock,
+  Check,
+  Minus,
+  Plus,
+  ShoppingBag,
+  MessageCircle,
+} from "lucide-react";
 import { Button, Card, CardContent } from "@aerovy/ui";
 import type { Experience } from "@/lib/catalog";
 import { useCartStore, lineSubtotal, type CartItem } from "@/lib/cart-store";
-import { fmtAED, fmtDuration } from "@/lib/site";
+import { fmtDuration } from "@/lib/site";
+import { waLink } from "@/lib/whatsapp";
+import { Price } from "@/components/price";
 
 type Props = { experience: Experience };
 
@@ -73,7 +84,7 @@ export function BookingCard({ experience }: Props) {
     <Card>
       <CardContent className="p-6">
         <p className="text-muted text-xs tracking-wide uppercase">From</p>
-        <p className="mt-1 text-3xl font-bold">{fmtAED(pricePerAdultAED)}</p>
+        <Price aed={pricePerAdultAED} className="mt-1 block text-3xl font-bold" />
         <p className="text-muted text-xs">per adult · taxes included</p>
 
         {/* Variant */}
@@ -100,7 +111,9 @@ export function BookingCard({ experience }: Props) {
                 />
                 <span className="flex-1">
                   <span className="font-medium">{v.nameEn}</span>
-                  <span className="text-muted ml-2">{fmtAED(v.basePriceAED)}</span>
+                  <span className="text-muted ml-2">
+                    <Price aed={v.basePriceAED} />
+                  </span>
                 </span>
               </label>
             ))}
@@ -156,18 +169,24 @@ export function BookingCard({ experience }: Props) {
           {adults > 0 && (
             <div className="flex justify-between">
               <dt className="text-muted">{adults} × adult</dt>
-              <dd>{fmtAED(adults * pricePerAdultAED)}</dd>
+              <dd>
+                <Price aed={adults * pricePerAdultAED} />
+              </dd>
             </div>
           )}
           {children > 0 && (
             <div className="flex justify-between">
               <dt className="text-muted">{children} × child</dt>
-              <dd>{fmtAED(children * pricePerChildAED)}</dd>
+              <dd>
+                <Price aed={children * pricePerChildAED} />
+              </dd>
             </div>
           )}
           <div className="flex justify-between border-t pt-2 text-base font-semibold">
             <dt>Total</dt>
-            <dd>{fmtAED(subtotal)}</dd>
+            <dd>
+              <Price aed={subtotal} />
+            </dd>
           </div>
         </dl>
 
@@ -204,6 +223,22 @@ export function BookingCard({ experience }: Props) {
                 Add to cart
               </>
             )}
+          </Button>
+          <Button variant="outline" size="lg" fullWidth asChild>
+            <a
+              href={waLink(
+                `Hi, I want to book ${experience.titleEn} on ${slot.toLocaleDateString("en", {
+                  weekday: "short",
+                  month: "short",
+                  day: "numeric",
+                })}`,
+              )}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <MessageCircle className="size-4" aria-hidden="true" />
+              Book via WhatsApp
+            </a>
           </Button>
         </div>
 

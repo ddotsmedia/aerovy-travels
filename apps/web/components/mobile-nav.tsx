@@ -4,9 +4,12 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@aerovy/ui";
 import { primaryNav } from "@/lib/site";
+import { useT } from "@/lib/i18n";
+import { navKeys } from "./site-nav";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
+  const t = useT();
 
   return (
     <>
@@ -34,7 +37,7 @@ export function MobileNav() {
                 onClick={() => setOpen(false)}
                 className="text-text hover:bg-surface rounded-md px-3 py-3 text-base font-medium"
               >
-                {l.label}
+                {t(navKeys[l.href] ?? "nav.planner")}
               </Link>
             ))}
             <div className="border-border mt-3 flex flex-col gap-2 border-t pt-4">

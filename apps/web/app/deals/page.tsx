@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DealCountdown } from "@/components/deals/deal-countdown";
 
 export const metadata: Metadata = {
   title: "Flash Deals & Offers · Aerovy Travels",
@@ -20,11 +21,6 @@ export default function DealsPage() {
     return Math.round(original * (1 - discount / 100));
   };
 
-  const getTimeLeft = (expiry: string) => {
-    const hours = parseInt(expiry);
-    return `${hours} hours left`;
-  };
-
   return (
     <main className="min-h-screen bg-gradient-to-b from-red-50 to-white">
       {/* Hero */}
@@ -37,7 +33,7 @@ export default function DealsPage() {
         {/* Countdown Timer */}
         <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-red-100 px-4 py-2 font-semibold text-red-700">
           <span className="animate-pulse">●</span>
-          Next deals in: 04:32:18
+          <DealCountdown hours={24} label="Deals refresh in:" />
         </div>
 
         {/* Newsletter Signup */}
@@ -89,7 +85,7 @@ export default function DealsPage() {
 
                   {/* Expiry */}
                   <div className="mb-4 text-sm font-semibold text-orange-600">
-                    {getTimeLeft(deal.expiry)}
+                    <DealCountdown hours={parseInt(deal.expiry)} />
                   </div>
 
                   <button className="w-full rounded bg-amber-600 px-4 py-2 font-medium text-white transition-colors hover:bg-amber-700">
