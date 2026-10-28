@@ -86,3 +86,32 @@ jobs:
             echo "Health check failed"
             docker logs --tail 100 aerovy-web || true
             exit 1
+
+      - name: Configure nginx reverse proxy on VPS
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -e
+            if [ ! -f /etc/nginx/sites-enabled/aerovy.ae ]; then
+              cat > /etc/nginx/sites-enabled/aerovy.ae << 'EOF'
+            server {
+              listen 80;
+              server_name aerovy.ae www.aerovy.ae;
+              location / {
+                proxy_pass http://127.0.0.1:3130;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_cache_bypass $http_upgrade;
+              }
+            }
+            EOF
+              nginx -t && systemctl reload nginx
+            fi
