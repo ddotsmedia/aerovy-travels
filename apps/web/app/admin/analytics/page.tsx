@@ -14,11 +14,9 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 import { Card, CardContent } from "@aerovy/ui";
-import { fmtAED } from "@/lib/site";
 
 const revenueData = [
   { month: "Jan", revenue: 45000 },

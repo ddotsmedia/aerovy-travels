@@ -27,7 +27,7 @@ export type CurrencyState = {
 
 export const useCurrencyStore = create<CurrencyState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       selected: "AED",
       rates: EXCHANGE_RATES,
       setCurrency: (currency) => set({ selected: currency }),

@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
     // 2. Save to database
     // 3. Store in CRM like HubSpot
 
+    // eslint-disable-next-line no-console -- placeholder until CRM/email is wired
     console.log("Contact form submission:", {
       name,
       email,

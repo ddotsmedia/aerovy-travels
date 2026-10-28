@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-import { useForm } from "react-hook-form";
-
 export const metadata: Metadata = {
   title: "Corporate Travel Solutions · Aerovy Travels",
   description:

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  Command,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -12,7 +11,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "cmdk";
-import { Search, MapPin, Heart, HelpCircle, Settings } from "lucide-react";
+import { MapPin, Heart, HelpCircle, Settings } from "lucide-react";
 import { primaryNav } from "@/lib/site";
 
 const QUICK_ACTIONS = [

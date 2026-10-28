@@ -59,7 +59,7 @@ export default function RewardsPage() {
         <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">Membership Tiers</h2>
 
         <div className="grid gap-8 md:grid-cols-3">
-          {tiers.map((tier, idx) => (
+          {tiers.map((tier) => (
             <div
               key={tier.name}
               className="overflow-hidden rounded-xl shadow-lg transition-shadow hover:shadow-xl"

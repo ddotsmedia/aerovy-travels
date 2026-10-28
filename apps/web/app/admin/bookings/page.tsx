@@ -20,7 +20,7 @@ const customers = [
 
 const mockBookings = Array.from({ length: 30 }, (_, i) => ({
   id: `AER-${5000 - i}`,
-  customer: customers[i % customers.length]!,
+  customer: customers[i % customers.length] ?? "Guest",
   experience: experiences[i % experiences.length]?.titleEn || "Experience",
   date: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
   pax: Math.floor(Math.random() * 6) + 1,

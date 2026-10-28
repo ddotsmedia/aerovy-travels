@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, Button } from "@aerovy/ui";
+import { Card, CardContent } from "@aerovy/ui";
 import { Search, Eye } from "lucide-react";
 
 const mockEnquiries = [

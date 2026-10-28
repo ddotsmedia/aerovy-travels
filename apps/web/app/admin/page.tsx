@@ -11,10 +11,9 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
 } from "recharts";
 import { Card, CardContent } from "@aerovy/ui";
-import { DollarSign, Users, CalendarCheck, MessageSquare } from "lucide-react";
+import { DollarSign, CalendarCheck, MessageSquare } from "lucide-react";
 import { StatCard } from "@/components/admin/stat-card";
 import { BookingStatusBadge } from "@/components/admin/booking-status-badge";
 import { experiences } from "@/lib/catalog";

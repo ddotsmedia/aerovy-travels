@@ -58,7 +58,7 @@ export default function DealsPage() {
       {/* Deals Grid */}
       <section className="mx-auto max-w-7xl px-4 py-16">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {deals.map((deal, idx) => {
+          {deals.map((deal) => {
             const discounted = getDiscountedPrice(deal.original, deal.discount);
             return (
               <div
